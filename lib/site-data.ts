@@ -16,7 +16,11 @@ export const dealProducts = [
   {
     title: 'Produce Saver Bins',
     description: 'Help fruits and vegetables stay fresh longer in your fridge.',
+<<<<<<< HEAD
     badge: 'Todays Deal',
+=======
+    badge: "Today's Deal",
+>>>>>>> aee9070 (Update homepage, auth pages, Android link, and favicon)
     href: 'https://www.amazon.com/s?k=produce+saver+bins',
     emoji: '🥬'
   },
