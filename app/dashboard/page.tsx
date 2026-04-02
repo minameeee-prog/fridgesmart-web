@@ -1,58 +1,64 @@
-import { expiringItems, fridgeStats, recipeCards } from '@/lib/site-data';
+export const fridgeStats = [
+  { label: 'Items in your fridge', value: '42', tone: 'bg-brand-softMint' },
+  { label: 'Expiring this week', value: '7', tone: 'bg-[#FFF1E8]' },
+  { label: 'Recipes ready now', value: '18', tone: 'bg-brand-softBlue' },
+  { label: 'Estimated saved', value: '$84', tone: 'bg-brand-softLilac' },
+];
 
-export default function DashboardHomePage() {
-  return (
-    <div className="space-y-6">
-      <section className="rounded-[2rem] bg-white p-8 shadow-soft">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <div className="text-sm font-black uppercase tracking-[0.18em] text-brand-olive">Dashboard home</div>
-            <h1 className="mt-2 text-4xl font-black text-brand-ink">Welcome back to FridgeSmart</h1>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-brand-ink/75">This is where logged-in users should quickly see what they have, what is expiring, and what they can cook next.</p>
-          </div>
-          <div className="rounded-full bg-[#FFF5E8] px-4 py-2 text-sm font-black text-brand-peach">Web companion dashboard</div>
-        </div>
-        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {fridgeStats.map((stat) => (
-            <div key={stat.label} className={`rounded-[1.5rem] ${stat.tone} p-5 shadow-card`}>
-              <div className="text-3xl font-black text-brand-ink">{stat.value}</div>
-              <div className="mt-1 text-sm font-semibold text-brand-ink/70">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+export const dealProducts = [
+  {
+    title: 'Glass Meal Prep Containers',
+    description: 'Keep leftovers visible, organized, and easy to use before they expire.',
+    badge: 'Amazon Pick',
+    href: 'https://www.amazon.com/s?k=glass+meal+prep+containers',
+    emoji: '🥗',
+  },
+  {
+    title: 'Produce Saver Bins',
+    description: 'Help fruits and vegetables stay fresh longer in your fridge.',
+    badge: "Today's Deal",
+    href: 'https://www.amazon.com/s?k=produce+saver+bins',
+    emoji: '🥬',
+  },
+  {
+    title: 'Pantry Organizer Set',
+    description: 'Make ingredients easier to see, track, and restock.',
+    badge: 'Kitchen Favorite',
+    href: 'https://www.amazon.com/s?k=pantry+organizer+set',
+    emoji: '🫙',
+  },
+  {
+    title: 'Vacuum Sealer',
+    description: 'Stretch the life of meats, leftovers, and meal prep staples.',
+    badge: 'Chef Lumi Pick',
+    href: 'https://www.amazon.com/s?k=vacuum+sealer',
+    emoji: '🍗',
+  },
+  {
+    title: 'Fridge Thermometer',
+    description: 'Keep your fridge at a safe temperature and reduce spoilage risk.',
+    badge: 'Smart Storage',
+    href: 'https://www.amazon.com/s?k=fridge+thermometer',
+    emoji: '🌡️',
+  },
+  {
+    title: 'Reusable Food Labels',
+    description: 'Date leftovers fast so you know what to use next.',
+    badge: 'Budget Saver',
+    href: 'https://www.amazon.com/s?k=reusable+food+labels',
+    emoji: '🏷️',
+  },
+];
 
-      <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-        <section className="rounded-[2rem] bg-brand-softBlue p-8 shadow-soft">
-          <div className="text-sm font-black uppercase tracking-[0.18em] text-brand-olive">Recipes ready now</div>
-          <div className="mt-5 space-y-4">
-            {recipeCards.map((recipe) => (
-              <div key={recipe.title} className="rounded-[1.5rem] bg-white p-5 shadow-card">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <div className="text-xl font-black text-brand-ink">{recipe.title}</div>
-                    <div className="mt-1 text-sm text-brand-ink/70">Uses {recipe.uses}</div>
-                  </div>
-                  <div className="rounded-full bg-brand-softMint px-3 py-1 text-xs font-black text-brand-olive">{recipe.ready}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+export const expiringItems = [
+  { name: 'Spinach', window: '1 day left', qty: '1 bag' },
+  { name: 'Greek Yogurt', window: '2 days left', qty: '2 cups' },
+  { name: 'Chicken Breast', window: '2 days left', qty: '1 pack' },
+  { name: 'Strawberries', window: '3 days left', qty: '1 box' },
+];
 
-        <section className="rounded-[2rem] bg-[#FFF6EF] p-8 shadow-soft">
-          <div className="text-sm font-black uppercase tracking-[0.18em] text-brand-peach">Expiring soon</div>
-          <div className="mt-5 space-y-4">
-            {expiringItems.map((item) => (
-              <div key={item.name} className="rounded-[1.5rem] bg-white p-5 shadow-card">
-                <div className="text-lg font-black text-brand-ink">{item.name}</div>
-                <div className="mt-1 text-sm text-brand-ink/70">{item.qty}</div>
-                <div className="mt-3 inline-flex rounded-full bg-[#FFF5E8] px-3 py-1 text-xs font-black text-brand-peach">{item.window}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-    </div>
-  );
-}
+export const recipeCards = [
+  { title: 'Creamy Garlic Pasta', ready: '18 min', uses: 'Spinach, yogurt, parmesan' },
+  { title: 'Pan Sheet Chicken Bowl', ready: '24 min', uses: 'Chicken, peppers, rice' },
+  { title: 'Berry Yogurt Breakfast Cups', ready: '6 min', uses: 'Strawberries, yogurt, granola' },
+];
