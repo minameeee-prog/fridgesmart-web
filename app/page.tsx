@@ -4,7 +4,7 @@ import Link from 'next/link';
 const appStoreUrl = 'https://apps.apple.com/us/app/fridgesmart-app/id6755790933';
 const playStoreUrl =
   'https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart';
-const amazonUrl = 'https://www.amazon.com/shop/fridgesmartapp?tag=fridgesmartapp-20';
+const amazonUrl = 'https://www.amazon.com/s?k=glass+meal+prep+containers+produce+saver+bins+reusable+food+labels&tag=fridgesmartap-20';
 
 const stats = [
   { value: '42', label: 'Items tracked', tone: 'bg-[#EEF6E8]' },
