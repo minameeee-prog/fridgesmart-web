@@ -1,8 +1,10 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 const appStoreUrl = 'https://apps.apple.com/us/app/fridgesmart-app/id6755790933';
 const playStoreUrl =
   'https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart';
+const amazonUrl = 'https://www.amazon.com/shop/fridgesmartapp';
 
 const stats = [
   { value: '42', label: 'Items tracked', tone: 'bg-[#EEF6E8]' },
@@ -55,6 +57,24 @@ const trustPoints = [
   'Keep your kitchen more organized',
 ];
 
+const shopCards = [
+  {
+    title: 'Glass Meal Prep Containers',
+    text: 'Keep leftovers visible and easy to reuse throughout the week.',
+    tone: 'bg-[#EEF6E8]',
+  },
+  {
+    title: 'Produce Saver Bins',
+    text: 'Help fruits and vegetables stay fresh longer and easier to track.',
+    tone: 'bg-[#FFF2E9]',
+  },
+  {
+    title: 'Reusable Food Labels',
+    text: 'Date food fast so nothing gets forgotten in the fridge.',
+    tone: 'bg-[#EEF3FF]',
+  },
+];
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#F7F4EE] text-[#14213D]">
@@ -62,8 +82,13 @@ export default function HomePage() {
         <div className="rounded-[2rem] bg-white shadow-[0_20px_60px_rgba(20,33,61,0.08)]">
           <header className="flex flex-col gap-5 border-b border-[#14213D]/6 px-6 py-5 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF2E9] text-xl font-black text-[#F08A5D]">
-                F
+              <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-[#FFF2E9]">
+                <Image
+                  src="/logo.png"
+                  alt="FridgeSmart logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
               <div>
                 <div className="text-lg font-black tracking-tight">FridgeSmart</div>
@@ -79,6 +104,9 @@ export default function HomePage() {
               </a>
               <a href="#how-it-works" className="transition hover:text-[#F08A5D]">
                 How it works
+              </a>
+              <a href="#shop" className="transition hover:text-[#F08A5D]">
+                Shop
               </a>
               <a href="#download" className="transition hover:text-[#F08A5D]">
                 Download
@@ -98,7 +126,7 @@ export default function HomePage() {
             </nav>
           </header>
 
-          <section className="grid gap-10 px-6 py-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-10">
+          <section className="grid gap-10 px-6 py-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-10">
             <div className="flex flex-col justify-center">
               <div className="inline-flex w-fit rounded-full bg-[#FFF4EC] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#F08A5D]">
                 Built for busy households
@@ -146,6 +174,65 @@ export default function HomePage() {
                     {item}
                   </div>
                 ))}
+              </div>
+
+              <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
+                  <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#FFF2E9]">
+                    <Image
+                      src="/owner-avatar.png"
+                      alt="FridgeSmart founder"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="mt-4 text-sm font-black uppercase tracking-[0.14em] text-[#F08A5D]">
+                    Founder-led
+                  </div>
+                  <div className="mt-2 text-lg font-black">Built for real families</div>
+                  <p className="mt-2 text-sm leading-7 text-[#14213D]/70">
+                    FridgeSmart was built to solve everyday kitchen chaos with something practical,
+                    useful, and easy to trust.
+                  </p>
+                </div>
+
+                <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
+                  <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#EEF6E8]">
+                    <Image
+                      src="/chef-lumi.png"
+                      alt="Chef Lumi"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="mt-4 text-sm font-black uppercase tracking-[0.14em] text-[#7A9C2F]">
+                    Chef Lumi
+                  </div>
+                  <div className="mt-2 text-lg font-black">Your AI kitchen assistant</div>
+                  <p className="mt-2 text-sm leading-7 text-[#14213D]/70">
+                    Chef Lumi helps you figure out what to cook with what you already have before
+                    it goes to waste.
+                  </p>
+                </div>
+
+                <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
+                  <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#EEF3FF]">
+                    <Image
+                      src="/female-avatar.png"
+                      alt="FridgeSmart user"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="mt-4 text-sm font-black uppercase tracking-[0.14em] text-[#14213D]">
+                    Everyday user
+                  </div>
+                  <div className="mt-2 text-lg font-black">Made for busy lives</div>
+                  <p className="mt-2 text-sm leading-7 text-[#14213D]/70">
+                    Perfect for people who want less guessing, less waste, and faster meal
+                    decisions every week.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -292,7 +379,16 @@ export default function HomePage() {
 
           <div className="rounded-[2rem] bg-[#FFF8F3] p-8 shadow-[0_20px_60px_rgba(20,33,61,0.05)]">
             <div className="rounded-[1.7rem] bg-white p-6 shadow-[0_15px_40px_rgba(20,33,61,0.06)]">
-              <div className="text-sm font-black uppercase tracking-[0.16em] text-[#7A9C2F]">
+              <div className="relative h-56 overflow-hidden rounded-[1.5rem] bg-[#EEF6E8]">
+                <Image
+                  src="/chef-lumi.png"
+                  alt="Chef Lumi"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              <div className="mt-5 text-sm font-black uppercase tracking-[0.16em] text-[#7A9C2F]">
                 Why it matters
               </div>
               <h3 className="mt-3 text-2xl font-black leading-tight">
@@ -312,6 +408,102 @@ export default function HomePage() {
                   Less guessing. Less waste. More value from the food you already bring home.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="shop" className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
+        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-[2rem] bg-white p-8 shadow-[0_20px_60px_rgba(20,33,61,0.06)]">
+            <div className="text-sm font-black uppercase tracking-[0.18em] text-[#F08A5D]">
+              Shop smarter
+            </div>
+            <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
+              Buy what you actually need, not what you forgot you already had
+            </h2>
+            <p className="mt-4 text-base leading-8 text-[#14213D]/72">
+              FridgeSmart helps households see what is already in the kitchen, catch what is
+              running low, and make smarter shopping decisions. That means fewer duplicate
+              purchases and more useful restocks.
+            </p>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-[1.5rem] bg-[#FAFAF7] p-5">
+                <div className="text-lg font-black">Restock essentials</div>
+                <div className="mt-2 text-sm leading-7 text-[#14213D]/70">
+                  Refill what you truly need instead of guessing at the store.
+                </div>
+              </div>
+
+              <div className="rounded-[1.5rem] bg-[#FAFAF7] p-5">
+                <div className="text-lg font-black">Kitchen organization</div>
+                <div className="mt-2 text-sm leading-7 text-[#14213D]/70">
+                  Discover products that help keep food visible, labeled, and easy to use.
+                </div>
+              </div>
+
+              <div className="rounded-[1.5rem] bg-[#FAFAF7] p-5">
+                <div className="text-lg font-black">Less waste, more value</div>
+                <div className="mt-2 text-sm leading-7 text-[#14213D]/70">
+                  Make every grocery trip work harder by using more of what you buy.
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-[1.6rem] bg-[#FFF8F3] p-5">
+              <div className="flex items-center gap-4">
+                <div className="relative h-16 w-16 overflow-hidden rounded-2xl bg-white">
+                  <Image
+                    src="/female-avatar.png"
+                    alt="FridgeSmart shopper"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="text-sm font-black uppercase tracking-[0.14em] text-[#F08A5D]">
+                    Real-life value
+                  </div>
+                  <div className="mt-1 text-base font-bold text-[#14213D]">
+                    Shop with confidence, not guesswork
+                  </div>
+                </div>
+              </div>
+              <p className="mt-4 text-sm leading-7 text-[#14213D]/72">
+                FridgeSmart makes it easier to know what to restock, what to skip, and which
+                kitchen tools help keep food fresher and easier to manage.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] bg-[#FFF8F3] p-8 shadow-[0_20px_60px_rgba(20,33,61,0.05)]">
+            <div className="rounded-[1.7rem] bg-white p-6 shadow-[0_15px_40px_rgba(20,33,61,0.06)]">
+              <div className="text-sm font-black uppercase tracking-[0.16em] text-[#7A9C2F]">
+                FridgeSmart kitchen picks
+              </div>
+
+              <div className="mt-5 space-y-4">
+                {shopCards.map((card) => (
+                  <div key={card.title} className={`rounded-[1.25rem] p-4 ${card.tone}`}>
+                    <div className="text-base font-black text-[#14213D]">{card.title}</div>
+                    <div className="mt-1 text-sm leading-7 text-[#14213D]/70">{card.text}</div>
+                  </div>
+                ))}
+              </div>
+
+              <a
+                href={amazonUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-[#F08A5D] px-6 py-4 text-base font-black text-white shadow-[0_10px_30px_rgba(240,138,93,0.22)]"
+              >
+                Shop on Amazon
+              </a>
+
+              <p className="mt-4 text-xs leading-6 text-[#14213D]/55">
+                As an Amazon Associate, FridgeSmart may earn from qualifying purchases.
+              </p>
             </div>
           </div>
         </div>
