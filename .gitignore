@@ -5,3 +5,5 @@ node_modules
 .env.local
 npm-debug.log*
 *.zip
+.vercel
+.env*.local
