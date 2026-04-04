@@ -4,7 +4,7 @@ import Link from 'next/link';
 const appStoreUrl = 'https://apps.apple.com/us/app/fridgesmart-app/id6755790933';
 const playStoreUrl =
   'https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart';
-const amazonUrl = 'https://www.amazon.com/shop/fridgesmartapp';
+const amazonUrl = 'https://www.amazon.com/shop/fridgesmartapp?tag=fridgesmartapp-20';
 
 const stats = [
   { value: '42', label: 'Items tracked', tone: 'bg-[#EEF6E8]' },
@@ -84,7 +84,7 @@ export default function HomePage() {
             <div className="flex items-center gap-4">
               <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-[#FFF2E9]">
                 <Image
-                  src="/logo.png"
+                  src="/assets/logo.png"
                   alt="FridgeSmart logo"
                   fill
                   className="object-cover"
@@ -180,7 +180,7 @@ export default function HomePage() {
                 <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
                   <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#FFF2E9]">
                     <Image
-                      src="/owner-avatar.png"
+                      src="/assets/owner-avatar.png"
                       alt="FridgeSmart founder"
                       fill
                       className="object-cover"
@@ -199,7 +199,7 @@ export default function HomePage() {
                 <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
                   <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#EEF6E8]">
                     <Image
-                      src="/chef-lumi.png"
+                      src="/assets/chef-lumi.png"
                       alt="Chef Lumi"
                       fill
                       className="object-cover"
@@ -218,7 +218,7 @@ export default function HomePage() {
                 <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
                   <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#EEF3FF]">
                     <Image
-                      src="/female-avatar.png"
+                      src="/assets/female-avatar.png"
                       alt="FridgeSmart user"
                       fill
                       className="object-cover"
@@ -381,7 +381,7 @@ export default function HomePage() {
             <div className="rounded-[1.7rem] bg-white p-6 shadow-[0_15px_40px_rgba(20,33,61,0.06)]">
               <div className="relative h-56 overflow-hidden rounded-[1.5rem] bg-[#EEF6E8]">
                 <Image
-                  src="/chef-lumi.png"
+                  src="/assets/chef-lumi.png"
                   alt="Chef Lumi"
                   fill
                   className="object-contain"
@@ -455,7 +455,7 @@ export default function HomePage() {
               <div className="flex items-center gap-4">
                 <div className="relative h-16 w-16 overflow-hidden rounded-2xl bg-white">
                   <Image
-                    src="/female-avatar.png"
+                    src="/assets/female-avatar.png"
                     alt="FridgeSmart shopper"
                     fill
                     className="object-cover"
