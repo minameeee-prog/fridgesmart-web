@@ -534,7 +534,7 @@ export default function HomePage() {
       alt="Download on the App Store"
       width={203}
       height={60}
-      className="h-auto w-[180px]"
+      className="h-auto w-[203px]"
     />
   </a>
             <a href={playStoreUrl} target="_blank" rel="noreferrer" className="inline-flex">
