@@ -530,7 +530,7 @@ export default function HomePage() {
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
                <a href={appStoreUrl} target="_blank" rel="noreferrer" className="inline-flex">
     <Image
-      src="/assets/app-store-badge.png"
+      src="/assets/app-store-badge.jpg"
       alt="Download on the App Store"
       width={180}
       height={60}
@@ -539,7 +539,7 @@ export default function HomePage() {
   </a>
             <a href={playStoreUrl} target="_blank" rel="noreferrer" className="inline-flex">
     <Image
-      src="/assets/google-play-badge.png"
+      src="/assets/google-play-badge.jpg"
       alt="Get it on Google Play"
       width={203}
       height={60}
