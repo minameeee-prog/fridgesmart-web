@@ -532,7 +532,7 @@ export default function HomePage() {
     <Image
       src="/assets/app-store-badge.jpg"
       alt="Download on the App Store"
-      width={180}
+      width={203}
       height={60}
       className="h-auto w-[180px]"
     />
