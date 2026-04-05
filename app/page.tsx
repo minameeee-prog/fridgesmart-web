@@ -528,23 +528,25 @@ export default function HomePage() {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <a
-                href={appStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-2xl bg-[#F08A5D] px-6 py-4 text-base font-black text-white shadow-[0_10px_30px_rgba(240,138,93,0.22)]"
-              >
-                App Store
-              </a>
-              <a
-                href={playStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-2xl border border-[#14213D]/10 bg-white px-6 py-4 text-base font-black text-[#14213D]"
-              >
-                Google Play
-              </a>
-            </div>
+               <a href={appStoreUrl} target="_blank" rel="noreferrer" className="inline-flex">
+    <Image
+      src="/assets/app-store-badge.png"
+      alt="Download on the App Store"
+      width={180}
+      height={60}
+      className="h-auto w-[180px]"
+    />
+  </a>
+            <a href={playStoreUrl} target="_blank" rel="noreferrer" className="inline-flex">
+    <Image
+      src="/assets/google-play-badge.png"
+      alt="Get it on Google Play"
+      width={203}
+      height={60}
+      className="h-auto w-[203px]"
+    />
+  </a>
+</div>
           </div>
 
           <footer className="mt-10 flex flex-col gap-4 border-t border-[#14213D]/8 pt-6 text-sm text-[#14213D]/62 lg:flex-row lg:items-center lg:justify-between">
