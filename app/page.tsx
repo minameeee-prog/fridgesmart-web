@@ -4,7 +4,8 @@ import Link from 'next/link';
 const appStoreUrl = 'https://apps.apple.com/us/app/fridgesmart-app/id6755790933';
 const playStoreUrl =
   'https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart';
-const amazonUrl = 'https://www.amazon.com/s?k=glass+meal+prep+containers+produce+saver+bins+reusable+food+labels&tag=fridgesmartap-20';
+const amazonUrl =
+  'https://www.amazon.com/s?k=glass+meal+prep+containers+produce+saver+bins+reusable+food+labels&tag=fridgesmartap-20';
 
 const stats = [
   { value: '42', label: 'Items tracked', tone: 'bg-[#EEF6E8]' },
@@ -97,62 +98,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-<section className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
-  <div className="rounded-[2rem] bg-white p-8 shadow-[0_20px_60px_rgba(20,33,61,0.06)]">
-    
-    <div className="text-sm font-black uppercase tracking-[0.18em] text-[#7A9C2F]">
-      FridgeSmart FAQ
-    </div>
 
-    <h2 className="mt-3 text-3xl font-black md:text-5xl">
-      Everything you need to know
-    </h2>
-
-    <div className="mt-6 space-y-6">
-      
-      <div>
-        <h3 className="font-black text-lg">
-          What is FridgeSmart?
-        </h3>
-        <p className="text-[#14213D]/70">
-          FridgeSmart is a smart fridge inventory app that helps you track food,
-          reduce waste, and cook meals using ingredients you already have.
-        </p>
-      </div>
-
-      <div>
-        <h3 className="font-black text-lg">
-          How does FridgeSmart help save money?
-        </h3>
-        <p className="text-[#14213D]/70">
-          By tracking expiration dates and helping you use food before it goes bad,
-          FridgeSmart helps reduce grocery waste and unnecessary purchases.
-        </p>
-      </div>
-
-      <div>
-        <h3 className="font-black text-lg">
-          Can FridgeSmart help with grocery shopping?
-        </h3>
-        <p className="text-[#14213D]/70">
-          Yes. FridgeSmart helps you identify what you actually need so you can shop smarter
-          and avoid buying duplicate items.
-        </p>
-      </div>
-
-      <div>
-        <h3 className="font-black text-lg">
-          What makes FridgeSmart different from other apps?
-        </h3>
-        <p className="text-[#14213D]/70">
-          FridgeSmart combines inventory tracking, expiration alerts, AI recipes,
-          and smart shopping recommendations in one simple experience.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
             <nav className="flex flex-wrap items-center gap-3 text-sm font-semibold text-[#14213D]/70">
               <a href="#features" className="transition hover:text-[#F08A5D]">
                 Features
@@ -167,6 +113,12 @@ export default function HomePage() {
                 Download
               </a>
               <Link
+                href="/amazon-kitchen-picks"
+                className="transition hover:text-[#F08A5D]"
+              >
+                Amazon Picks
+              </Link>
+              <Link
                 href="/login"
                 className="rounded-xl border border-[#14213D]/10 px-4 py-2 transition hover:border-[#F08A5D] hover:text-[#F08A5D]"
               >
@@ -178,12 +130,6 @@ export default function HomePage() {
               >
                 Get started
               </Link>
-              <Link
-  href="/amazon-kitchen-picks"
-  className="transition hover:text-[#F08A5D]"
->
-  Amazon Picks
-</Link>
             </nav>
           </header>
 
@@ -546,25 +492,19 @@ export default function HomePage() {
 
               <div className="mt-5 space-y-4">
                 {shopCards.map((card) => (
-  <a
-    key={card.title}
-    href={amazonUrl}
-    target="_blank"
-    rel="noreferrer"
-    className={`block rounded-[1.25rem] p-4 ${card.tone} transition hover:scale-[1.02] hover:shadow-lg`}
-  >
-    <div className="text-base font-black text-[#14213D]">
-      {card.title}
-    </div>
-    <div className="mt-1 text-sm leading-7 text-[#14213D]/70">
-      {card.text}
-    </div>
-
-    <div className="mt-3 text-sm font-bold text-[#F08A5D]">
-      View on Amazon →
-    </div>
-  </a>
-))}
+                  <a
+                    key={card.title}
+                    href={amazonUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`block rounded-[1.25rem] p-4 ${card.tone} transition hover:scale-[1.02] hover:shadow-lg`}
+                  >
+                    <div className="text-base font-black text-[#14213D]">{card.title}</div>
+                    <div className="mt-1 text-sm leading-7 text-[#14213D]/70">{card.text}</div>
+                    <div className="mt-3 text-sm font-bold text-[#F08A5D]">View on Amazon →</div>
+                  </a>
+                ))}
+              </div>
 
               <a
                 href={amazonUrl}
@@ -581,7 +521,52 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
+        <div className="rounded-[2rem] bg-white p-8 shadow-[0_20px_60px_rgba(20,33,61,0.06)]">
+          <div className="text-sm font-black uppercase tracking-[0.18em] text-[#7A9C2F]">
+            FridgeSmart FAQ
+          </div>
+
+          <h2 className="mt-3 text-3xl font-black md:text-5xl">
+            Everything you need to know
+          </h2>
+
+          <div className="mt-6 space-y-6">
+            <div>
+              <h3 className="text-lg font-black">What is FridgeSmart?</h3>
+              <p className="text-[#14213D]/70">
+                FridgeSmart is a smart fridge inventory app that helps you track food, reduce
+                waste, and cook meals using ingredients you already have.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-black">How does FridgeSmart help save money?</h3>
+              <p className="text-[#14213D]/70">
+                By tracking expiration dates and helping you use food before it goes bad,
+                FridgeSmart helps reduce grocery waste and unnecessary purchases.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-black">Can FridgeSmart help with grocery shopping?</h3>
+              <p className="text-[#14213D]/70">
+                Yes. FridgeSmart helps you identify what you actually need so you can shop smarter
+                and avoid buying duplicate items.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-black">What makes FridgeSmart different from other apps?</h3>
+              <p className="text-[#14213D]/70">
+                FridgeSmart combines inventory tracking, expiration alerts, AI recipes, and smart
+                shopping recommendations in one simple experience.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="download" className="mx-auto max-w-7xl px-6 pb-14 pt-6 lg:px-10">
