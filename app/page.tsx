@@ -1,626 +1,1031 @@
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
 
-const appStoreUrl = 'https://apps.apple.com/us/app/fridgesmart-app/id6755790933';
-const playStoreUrl =
-  'https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart';
-const amazonUrl =
-  'https://www.amazon.com/s?k=glass+meal+prep+containers+produce+saver+bins+reusable+food+labels&tag=fridgesmartap-20';
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  ArrowRight,
+  BellRing,
+  Bot,
+  CheckCircle2,
+  ChefHat,
+  Clock3,
+  Loader2,
+  ScanLine,
+  Send,
+  ShoppingCart,
+  Sparkles,
+  Star,
+  Wallet,
+  X,
+} from "lucide-react";
 
-const stats = [
-  { value: '42', label: 'Items tracked', tone: 'bg-[#EEF6E8]' },
-  { value: '7', label: 'Expiring soon', tone: 'bg-[#FFF2E9]' },
-  { value: '18', label: 'Recipes ready', tone: 'bg-[#EEF3FF]' },
-  { value: '$84', label: 'Estimated saved', tone: 'bg-[#F2EAFE]' },
+const APP_STORE_URL =
+  "https://apps.apple.com/us/app/fridgesmart-app/id6755790933";
+const PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart";
+const AMAZON_URL =
+  "https://www.amazon.com/s?k=kitchen+groceries&tag=fridgesmartap-20";
+const API_ENDPOINT = "/api/chef-lumi-demo";
+
+type Msg = { role: "user" | "assistant"; text: string };
+
+const howItWorks = [
+  {
+    icon: ScanLine,
+    title: "Scan your fridge",
+    description:
+      "Quickly see what you already have so you stop guessing and start using food before it gets forgotten.",
+  },
+  {
+    icon: BellRing,
+    title: "Catch expiration early",
+    description:
+      "Get reminders before food goes bad so you waste less and save more every week.",
+  },
+  {
+    icon: ChefHat,
+    title: "Get meals instantly",
+    description:
+      "Chef Lumi suggests what to cook from your real ingredients and helps you decide faster.",
+  },
 ];
 
 const features = [
   {
-    title: 'Smart inventory tracking',
-    text: 'Keep groceries, leftovers, and pantry staples organized in one place so you always know what you already have.',
+    icon: Clock3,
+    title: "Expiration alerts",
+    description: "Know what should be used first and what can wait.",
   },
   {
-    title: 'Expiration alerts',
-    text: 'Catch what needs to be used soon before it turns into wasted food and wasted money.',
+    icon: Bot,
+    title: "Chef Lumi help",
+    description:
+      "Get meal suggestions, cuisine options, and faster dinner decisions.",
   },
   {
-    title: 'AI recipe suggestions',
-    text: 'Get meal ideas from the ingredients already in your kitchen instead of guessing what to cook.',
+    icon: ShoppingCart,
+    title: "Smarter shopping",
+    description:
+      "Fill in what you actually need instead of buying blindly.",
   },
   {
-    title: 'Built for real households',
-    text: 'Perfect for busy families, working professionals, and anyone trying to waste less and save more.',
+    icon: Wallet,
+    title: "Save more money",
+    description:
+      "Use what you already bought before spending on duplicates or takeout.",
   },
 ];
 
-const howItWorks = [
+const testimonials = [
   {
-    step: '01',
-    title: 'Add what is in your kitchen',
-    text: 'Track fridge, freezer, and pantry items so your home inventory finally lives in one place.',
+    name: "Early User",
+    quote:
+      "The expiration reminders alone made me realize how much food I was forgetting.",
   },
   {
-    step: '02',
-    title: 'See what needs attention',
-    text: 'FridgeSmart highlights what is expiring soon so you can use it before it goes bad.',
+    name: "Busy Parent",
+    quote:
+      "Chef Lumi makes dinner easier because I can use what I already have instead of ordering out.",
   },
   {
-    step: '03',
-    title: 'Cook from what you already own',
-    text: 'Chef Lumi helps turn real ingredients into practical meal ideas fast.',
-  },
-];
-
-const trustPoints = [
-  'Cut down on wasted groceries',
-  'Make meal decisions faster',
-  'Use more of what you buy',
-  'Keep your kitchen more organized',
-];
-
-const shopCards = [
-  {
-    title: 'Glass Meal Prep Containers',
-    text: 'Keep leftovers visible and easy to reuse throughout the week.',
-    tone: 'bg-[#EEF6E8]',
-  },
-  {
-    title: 'Produce Saver Bins',
-    text: 'Help fruits and vegetables stay fresh longer and easier to track.',
-    tone: 'bg-[#FFF2E9]',
-  },
-  {
-    title: 'Reusable Food Labels',
-    text: 'Date food fast so nothing gets forgotten in the fridge.',
-    tone: 'bg-[#EEF3FF]',
+    name: "Meal Prep User",
+    quote:
+      "The scan is what sold me. It makes my fridge feel organized in seconds.",
   },
 ];
 
-export default function HomePage() {
+function AppStoreBadge() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE] text-[#14213D]">
-      <section className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
-        <div className="rounded-[2rem] bg-white shadow-[0_20px_60px_rgba(20,33,61,0.08)]">
-          <header className="flex flex-col gap-5 border-b border-[#14213D]/6 px-6 py-5 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-            <div className="flex items-center gap-4">
-              <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-[#FFF2E9]">
+    <Link
+      href={APP_STORE_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex min-w-[190px] items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+    >
+      <div>
+        <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">
+          Download on the
+        </div>
+        <div className="text-base font-semibold text-slate-950">App Store</div>
+      </div>
+    </Link>
+  );
+}
+
+function PlayStoreBadge() {
+  return (
+    <Link
+      href={PLAY_STORE_URL}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex min-w-[190px] items-center justify-center rounded-2xl border border-emerald-200 bg-emerald-600 px-5 py-3 text-left text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-500 hover:shadow-lg"
+    >
+      <div>
+        <div className="text-[11px] uppercase tracking-[0.18em] text-emerald-100">
+          Get it on
+        </div>
+        <div className="text-base font-semibold">Google Play</div>
+      </div>
+    </Link>
+  );
+}
+
+function ChatBubble({ message }: { message: Msg }) {
+  const isAssistant = message.role === "assistant";
+
+  if (isAssistant) {
+    return (
+      <div className="flex items-end justify-start gap-2">
+        <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-emerald-50 ring-1 ring-emerald-100">
+          <Image
+            src="/chef-lumi.png"
+            alt="Chef Lumi"
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div className="max-w-[85%] rounded-2xl bg-white px-4 py-3 text-sm leading-6 text-slate-700 shadow-sm ring-1 ring-emerald-100">
+          {message.text}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex justify-end">
+      <div className="max-w-[85%] rounded-2xl bg-emerald-600 px-4 py-3 text-sm leading-6 text-white shadow-sm">
+        {message.text}
+      </div>
+    </div>
+  );
+}
+
+function ChefChat() {
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<Msg[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [turns, setTurns] = useState(0);
+  const [showCTA, setShowCTA] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const suggestedPrompts = useMemo(
+    () => [
+      "I have chicken, rice, and broccoli",
+      "Eggs, spinach, cheese, and tortillas",
+      "Ground beef, pasta, garlic, and tomatoes",
+    ],
+    []
+  );
+
+  useEffect(() => {
+    if (open && messages.length === 0) {
+      setMessages([
+        {
+          role: "assistant",
+          text: "Hey 👋 I’m Chef Lumi. Tell me a few things in your fridge and I’ll suggest what you can make.",
+        },
+      ]);
+    }
+  }, [open, messages.length]);
+
+  useEffect(() => {
+    if (!listRef.current) return;
+    listRef.current.scrollTop = listRef.current.scrollHeight;
+  }, [messages, loading, showCTA]);
+
+  async function send(text?: string) {
+    const msg = (text || input).trim();
+    if (!msg || loading || showCTA) return;
+
+    const nextTurns = turns + 1;
+    const newMessages = [...messages, { role: "user" as const, text: msg }];
+
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const res = await fetch(API_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: msg,
+          messages: newMessages,
+        }),
+      });
+
+      const data = await res.json();
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          text:
+            data?.reply ||
+            "You can make something quick with that, and FridgeSmart can help you use what should be eaten first.",
+        },
+      ]);
+
+      setTurns(nextTurns);
+
+      if (nextTurns >= 3) {
+        setTimeout(() => setShowCTA(true), 300);
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          text:
+            nextTurns >= 3
+              ? "I can do this with your full fridge, expiration tracking, and smart shopping inside the app."
+              : "You can make something quick with that, and FridgeSmart can help you use what should be eaten first.",
+        },
+      ]);
+      setTurns(nextTurns);
+      if (nextTurns >= 3) setShowCTA(true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-3 rounded-full bg-slate-950 px-4 py-3 text-sm font-semibold text-white shadow-2xl shadow-slate-300 transition hover:scale-[1.02] hover:bg-slate-800"
+        aria-label="Open Chef Lumi chat"
+      >
+        <div className="relative h-10 w-10 overflow-hidden rounded-full bg-emerald-50 ring-2 ring-white/10">
+          <Image
+            src="/chef-lumi.png"
+            alt="Chef Lumi"
+            fill
+            className="object-cover"
+          />
+        </div>
+        <span className="hidden pr-1 sm:inline">Ask Chef Lumi</span>
+      </button>
+
+      {open && (
+        <div className="fixed bottom-24 right-5 z-50 w-[calc(100vw-2rem)] max-w-[390px] overflow-hidden rounded-[28px] border border-emerald-100 bg-[#f6faf6] shadow-2xl shadow-slate-300">
+          <div className="flex items-center justify-between border-b border-emerald-100 bg-white px-4 py-4">
+            <div className="flex items-center gap-3">
+              <div className="relative h-10 w-10 overflow-hidden rounded-2xl bg-emerald-50 ring-1 ring-emerald-100">
                 <Image
-                  src="/assets/logo.png"
-                  alt="FridgeSmart logo"
+                  src="/chef-lumi.png"
+                  alt="Chef Lumi"
                   fill
                   className="object-cover"
                 />
               </div>
               <div>
-                <div className="text-lg font-black tracking-tight">FridgeSmart</div>
-                <div className="text-sm text-[#14213D]/55">
-                  Smarter food tracking for real households
+                <div className="font-semibold text-slate-950">Chef Lumi</div>
+                <div className="text-xs text-slate-500">
+                  Live demo · 3 free messages
                 </div>
               </div>
             </div>
 
-            <nav className="flex flex-wrap items-center gap-3 text-sm font-semibold text-[#14213D]/70">
-              <a href="#features" className="transition hover:text-[#F08A5D]">
-                Features
-              </a>
-              <a href="#how-it-works" className="transition hover:text-[#F08A5D]">
-                How it works
-              </a>
-              <a href="#shop" className="transition hover:text-[#F08A5D]">
-                Shop
-              </a>
-              <a href="#download" className="transition hover:text-[#F08A5D]">
-                Download
-              </a>
-              <Link
-                href="/amazon-kitchen-picks"
-                className="transition hover:text-[#F08A5D]"
-              >
-                Amazon Picks
-              </Link>
-              <Link
-                href="/login"
-                className="rounded-xl border border-[#14213D]/10 px-4 py-2 transition hover:border-[#F08A5D] hover:text-[#F08A5D]"
-              >
-                Log in
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded-xl bg-[#F08A5D] px-4 py-2 text-white transition hover:translate-y-[-1px]"
-              >
-                Get started
-              </Link>
-            </nav>
-          </header>
+            <button
+              onClick={() => setOpen(false)}
+              className="rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+              aria-label="Close chat"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
 
-          <section className="grid gap-10 px-6 py-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-10">
-            <div className="flex flex-col justify-center">
-              <div className="inline-flex w-fit rounded-full bg-[#FFF4EC] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#F08A5D]">
-                Built for busy households
+          <div
+            ref={listRef}
+            className="max-h-[420px] space-y-3 overflow-y-auto p-4"
+          >
+            {messages.map((m, i) => (
+              <ChatBubble key={i} message={m} />
+            ))}
+
+            {loading && (
+              <div className="flex justify-start">
+                <div className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm text-slate-500 shadow-sm ring-1 ring-emerald-100">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Thinking...
+                </div>
               </div>
+            )}
 
-              <h1 className="mt-5 max-w-3xl text-5xl font-black leading-[0.98] tracking-tight md:text-7xl">
-                Waste less.
-                <br />
-                Save more.
-                <br />
-                Decide faster.
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#14213D]/72">
-                FridgeSmart helps you track what is in your fridge, catch expiring items before
-                they go bad, and turn ingredients you already have into real meals.
-              </p>
-
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href={appStoreUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-2xl bg-[#F08A5D] px-6 py-4 text-base font-black text-white shadow-[0_10px_30px_rgba(240,138,93,0.25)] transition hover:translate-y-[-1px]"
-                >
-                  Download on the App Store
-                </a>
-
-                <a
-                  href={playStoreUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-2xl border border-[#14213D]/10 bg-white px-6 py-4 text-base font-black text-[#14213D] transition hover:translate-y-[-1px]"
-                >
-                  Get it on Google Play
-                </a>
-              </div>
-
-              <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                {trustPoints.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-[1.35rem] bg-[#FAFAF7] px-4 py-4 text-sm font-bold text-[#7A9C2F] shadow-[0_10px_25px_rgba(20,33,61,0.04)]"
+            {showCTA && (
+              <div className="rounded-3xl border border-emerald-200 bg-white p-4 shadow-sm">
+                <div className="text-sm font-semibold text-slate-950">
+                  Get full access in the app
+                </div>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  Scan your full fridge, track expiration dates, get smarter
+                  meal ideas, and build shopping help from what you actually
+                  need.
+                </p>
+                <div className="mt-4 grid gap-3">
+                  <Link
+                    href={APP_STORE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                   >
-                    {item}
-                  </div>
+                    Download on the App Store
+                  </Link>
+                  <Link
+                    href={PLAY_STORE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500"
+                  >
+                    Get it on Google Play
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {!showCTA && (
+            <div className="border-t border-emerald-100 bg-white p-4">
+              <div className="mb-3 flex flex-wrap gap-2">
+                {suggestedPrompts.map((prompt) => (
+                  <button
+                    key={prompt}
+                    onClick={() => send(prompt)}
+                    className="rounded-full border border-emerald-200 bg-[#f6faf6] px-3 py-2 text-xs font-medium text-emerald-700 transition hover:bg-emerald-50"
+                  >
+                    {prompt}
+                  </button>
                 ))}
               </div>
 
-              <div className="mt-10 grid gap-4 sm:grid-cols-3">
-                <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
-                  <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#FFF2E9]">
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-[#f9fcf9] px-3 py-2">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      send();
+                    }
+                  }}
+                  placeholder="Type ingredients..."
+                  className="h-10 flex-1 bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
+                />
+                <button
+                  onClick={() => send()}
+                  disabled={loading || !input.trim()}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-950 text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-label="Send"
+                >
+                  <Send className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
+export default function Page() {
+  return (
+    <>
+      <main className="min-h-screen bg-[#f6faf6] text-slate-900">
+        <section className="relative overflow-hidden border-b border-emerald-100 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.16),_transparent_35%),linear-gradient(180deg,#f7fcf8_0%,#eef8f0_100%)]">
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-emerald-100/60 to-transparent" />
+
+          <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-24">
+            <header className="mb-10 rounded-full border border-white/70 bg-white/85 px-4 py-3 shadow-sm backdrop-blur md:px-6">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="relative h-11 w-11 overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-sm">
                     <Image
-                      src="/assets/owner-avatar.png"
-                      alt="FridgeSmart founder"
+                      src="/logo.png"
+                      alt="FridgeSmart logo"
                       fill
-                      className="object-cover"
+                      className="object-contain p-1.5"
+                      priority
                     />
                   </div>
-                  <div className="mt-4 text-sm font-black uppercase tracking-[0.14em] text-[#F08A5D]">
-                    Founder-led
+                  <div>
+                    <div className="text-base font-semibold tracking-tight">
+                      FridgeSmart
+                    </div>
+                    <div className="text-xs text-slate-500">
+                      Scan. Save. Cook smarter.
+                    </div>
                   </div>
-                  <div className="mt-2 text-lg font-black">Built for real families</div>
-                  <p className="mt-2 text-sm leading-7 text-[#14213D]/70">
-                    FridgeSmart was built to solve everyday kitchen chaos with something practical,
-                    useful, and easy to trust.
-                  </p>
                 </div>
 
-                <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
-                  <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#EEF6E8]">
-                    <Image
-                      src="/assets/chef-lumi.png"
-                      alt="Chef Lumi"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="mt-4 text-sm font-black uppercase tracking-[0.14em] text-[#7A9C2F]">
+                <nav className="hidden items-center gap-6 md:flex">
+                  <a
+                    href="#how-it-works"
+                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
+                  >
+                    How it works
+                  </a>
+                  <a
+                    href="#features"
+                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
+                  >
+                    Features
+                  </a>
+                  <a
+                    href="#chef-lumi"
+                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
+                  >
                     Chef Lumi
-                  </div>
-                  <div className="mt-2 text-lg font-black">Your AI kitchen assistant</div>
-                  <p className="mt-2 text-sm leading-7 text-[#14213D]/70">
-                    Chef Lumi helps you figure out what to cook with what you already have before
-                    it goes to waste.
-                  </p>
+                  </a>
+                  <a
+                    href="#amazon-picks"
+                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
+                  >
+                    Amazon Picks
+                  </a>
+                </nav>
+
+                <div className="flex items-center gap-3">
+                  <a
+                    href="#amazon-picks"
+                    className="hidden rounded-full px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-white md:inline-flex"
+                  >
+                    Amazon Picks
+                  </a>
+                  <a
+                    href="#download"
+                    className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  >
+                    Get started
+                  </a>
+                </div>
+              </div>
+            </header>
+
+            <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+              <div>
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/80 px-4 py-2 text-sm font-medium text-emerald-800 shadow-sm backdrop-blur">
+                  <Sparkles className="h-4 w-4" />
+                  Your fridge isn’t empty — you just don’t know what is in it
+                  yet.
                 </div>
 
-                <div className="rounded-[1.6rem] bg-[#FAFAF7] p-4 shadow-[0_12px_25px_rgba(20,33,61,0.04)]">
-                  <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-[#EEF3FF]">
-                    <Image
-                      src="/assets/female-avatar.png"
-                      alt="FridgeSmart user"
-                      fill
-                      className="object-cover"
-                    />
+                <h1 className="max-w-3xl text-4xl font-black tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                  Stop losing money to forgotten food.
+                </h1>
+
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+                  FridgeSmart helps you scan your fridge, track expiration
+                  dates, get reminders before food goes bad, and turn what you
+                  already have into real meals from different cuisines.
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-4" id="download">
+                  <AppStoreBadge />
+                  <PlayStoreBadge />
+                </div>
+
+                <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-2xl border border-emerald-100 bg-white/90 p-4 shadow-sm">
+                    <div className="text-2xl font-black tracking-tight text-slate-950">
+                      $50–$100
+                    </div>
+                    <div className="mt-1 text-sm text-slate-600">
+                      Potential monthly savings from using food before it
+                      expires
+                    </div>
                   </div>
-                  <div className="mt-4 text-sm font-black uppercase tracking-[0.14em] text-[#14213D]">
-                    Everyday user
+                  <div className="rounded-2xl border border-emerald-100 bg-white/90 p-4 shadow-sm">
+                    <div className="text-2xl font-black tracking-tight text-slate-950">
+                      120+
+                    </div>
+                    <div className="mt-1 text-sm text-slate-600">
+                      Early users already organizing meals and reducing waste
+                    </div>
                   </div>
-                  <div className="mt-2 text-lg font-black">Made for busy lives</div>
-                  <p className="mt-2 text-sm leading-7 text-[#14213D]/70">
-                    Perfect for people who want less guessing, less waste, and faster meal
-                    decisions every week.
-                  </p>
+                  <div className="rounded-2xl border border-emerald-100 bg-white/90 p-4 shadow-sm">
+                    <div className="text-2xl font-black tracking-tight text-slate-950">
+                      ~10 sec
+                    </div>
+                    <div className="mt-1 text-sm text-slate-600">
+                      To start scanning and seeing what needs attention first
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-slate-600">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 shadow-sm ring-1 ring-slate-200">
+                    <div className="flex items-center gap-0.5 text-amber-500">
+                      <Star className="h-4 w-4 fill-current" />
+                      <Star className="h-4 w-4 fill-current" />
+                      <Star className="h-4 w-4 fill-current" />
+                      <Star className="h-4 w-4 fill-current" />
+                      <Star className="h-4 w-4 fill-current" />
+                    </div>
+                    <span>
+                      Built for busy households that want to waste less and
+                      decide faster
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -left-8 top-8 hidden h-28 w-28 rounded-full bg-emerald-300/30 blur-3xl lg:block" />
+                <div className="absolute -right-10 bottom-0 hidden h-40 w-40 rounded-full bg-lime-300/30 blur-3xl lg:block" />
+
+                <div className="relative rounded-[32px] border border-white/70 bg-white/90 p-3 shadow-2xl shadow-emerald-100/80 backdrop-blur">
+                  <div className="overflow-hidden rounded-[26px] border border-emerald-100 bg-[#f2faf4]">
+                    <div className="flex items-center justify-between border-b border-emerald-100 px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <div className="relative h-9 w-9 overflow-hidden rounded-xl bg-white ring-1 ring-emerald-100">
+                          <Image
+                            src="/logo.png"
+                            alt="FridgeSmart"
+                            fill
+                            className="object-contain p-1"
+                          />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold">
+                            FridgeSmart
+                          </div>
+                          <div className="text-xs text-slate-500">
+                            Live fridge snapshot
+                          </div>
+                        </div>
+                      </div>
+                      <div className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
+                        84% freshness score
+                      </div>
+                    </div>
+
+                    <div className="grid gap-4 p-4 sm:grid-cols-[0.9fr_1.1fr]">
+                      <div className="space-y-4">
+                        <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-emerald-100">
+                          <div className="mb-3 flex items-center justify-between">
+                            <span className="text-sm font-semibold">
+                              Expiring soon
+                            </span>
+                            <span className="rounded-full bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-600">
+                              Next 48h
+                            </span>
+                          </div>
+                          <div className="space-y-2 text-sm">
+                            {[
+                              ["Spinach", "Today"],
+                              ["Milk", "Tomorrow"],
+                              ["Chicken breast", "2 days"],
+                            ].map(([item, time]) => (
+                              <div
+                                key={item}
+                                className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2"
+                              >
+                                <span className="font-medium text-slate-700">
+                                  {item}
+                                </span>
+                                <span className="text-xs font-semibold text-rose-600">
+                                  {time}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="rounded-2xl bg-slate-950 p-4 text-white shadow-sm">
+                          <div className="text-xs uppercase tracking-[0.22em] text-emerald-300">
+                            Estimated saved
+                          </div>
+                          <div className="mt-2 text-3xl font-black">$84</div>
+                          <p className="mt-2 text-sm leading-6 text-slate-300">
+                            This month from using what you already had before
+                            shopping again.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4" id="chef-lumi">
+                        <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-emerald-100">
+                          <div className="mb-4 flex items-center gap-3">
+                            <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-emerald-50 ring-1 ring-emerald-100">
+                              <Image
+                                src="/chef-lumi.png"
+                                alt="Chef Lumi"
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <div>
+                              <div className="text-sm font-semibold">
+                                Chef Lumi
+                              </div>
+                              <div className="text-xs text-slate-500">
+                                AI kitchen assistant
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="rounded-2xl bg-emerald-50 p-4 text-sm leading-7 text-slate-700">
+                            <p className="font-medium text-slate-900">
+                              “You already have chicken, broccoli, rice, garlic,
+                              and soy sauce.”
+                            </p>
+                            <p className="mt-2">
+                              Make a quick stir-fry tonight. Your spinach
+                              expires today, so add it now and save the chicken
+                              breast for tomorrow’s lunch bowl.
+                            </p>
+                          </div>
+
+                          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                            <div className="rounded-2xl bg-slate-50 p-3">
+                              <div className="text-xs uppercase tracking-[0.18em] text-slate-500">
+                                Cuisine
+                              </div>
+                              <div className="mt-1 font-semibold">
+                                Global recipe ideas
+                              </div>
+                            </div>
+                            <div className="rounded-2xl bg-slate-50 p-3">
+                              <div className="text-xs uppercase tracking-[0.18em] text-slate-500">
+                                Smart shopping
+                              </div>
+                              <div className="mt-1 font-semibold">
+                                Fill what is actually needed
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-600 to-emerald-700 p-4 text-white shadow-sm">
+                          <div className="flex items-center justify-between gap-3">
+                            <div>
+                              <div className="text-sm font-semibold">
+                                Need a few ingredients?
+                              </div>
+                              <p className="mt-1 text-sm text-emerald-50/90">
+                                Build a smarter shopping path from what is low
+                                or missing.
+                              </p>
+                            </div>
+                            <a
+                              href="#amazon-picks"
+                              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50"
+                            >
+                              Amazon picks
+                              <ArrowRight className="h-4 w-4" />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <div className="rounded-[2rem] bg-[#FBFBF8] p-5">
-              <div className="rounded-[1.8rem] bg-white p-5 shadow-[0_20px_50px_rgba(20,33,61,0.07)]">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <div className="text-sm font-black uppercase tracking-[0.15em] text-[#7A9C2F]">
-                      What FridgeSmart helps you do
-                    </div>
-                    <div className="mt-2 text-sm leading-6 text-[#14213D]/65">
-                      A better way to track food, avoid waste, and make meals from what is already
-                      in your kitchen.
-                    </div>
+        <section
+          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+          id="how-it-works"
+        >
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+              How it works
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+              A better system for what is already in your fridge.
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-slate-600">
+              FridgeSmart is built for one outcome: helping you use your food
+              before it expires, make meals faster, and shop with less waste.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {howItWorks.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm shadow-emerald-100/60"
+                >
+                  <div className="inline-flex rounded-2xl bg-emerald-50 p-3 text-emerald-700">
+                    <Icon className="h-6 w-6" />
                   </div>
-                  <div className="hidden h-14 w-14 items-center justify-center rounded-2xl bg-[#FFF2E9] text-2xl lg:flex">
-                    🧊
-                  </div>
+                  <h3 className="mt-5 text-xl font-bold tracking-tight text-slate-950">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-7 text-slate-600">
+                    {item.description}
+                  </p>
                 </div>
+              );
+            })}
+          </div>
+        </section>
 
-                <div className="mt-6 space-y-4">
-                  {stats.map((stat) => (
-                    <div key={stat.label} className={`rounded-[1.4rem] p-5 ${stat.tone}`}>
-                      <div className="text-4xl font-black text-[#14213D]">{stat.value}</div>
-                      <div className="mt-1 text-sm font-semibold text-[#14213D]/68">
-                        {stat.label}
-                      </div>
+        <section className="border-y border-emerald-100 bg-white" id="features">
+          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+                  Why people use it
+                </p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+                  Less waste. Better meals. Smarter shopping.
+                </h2>
+                <p className="mt-4 text-lg leading-8 text-slate-600">
+                  This is not another generic food app. It is a practical home
+                  tool that helps you track what you have, catch what is
+                  expiring, and decide what to cook without the stress.
+                </p>
+
+                <div className="mt-8 grid gap-3">
+                  {[
+                    "See what needs to be used first",
+                    "Get reminded before food goes bad",
+                    "Turn ingredients into real meals",
+                    "Build shopping decisions from your actual kitchen",
+                  ].map((point) => (
+                    <div
+                      key={point}
+                      className="flex items-start gap-3 rounded-2xl bg-[#f6faf6] px-4 py-3"
+                    >
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+                      <span className="text-slate-700">{point}</span>
                     </div>
                   ))}
                 </div>
+              </div>
 
-                <div className="mt-6 rounded-[1.4rem] bg-[#FFF8F3] p-5">
-                  <div className="text-xs font-black uppercase tracking-[0.16em] text-[#F08A5D]">
-                    Perfect for
-                  </div>
-                  <ul className="mt-3 space-y-2 text-sm leading-6 text-[#14213D]/72">
-                    <li>• Families managing weekly groceries</li>
-                    <li>• Busy professionals who forget what they bought</li>
-                    <li>• Anyone trying to save money and reduce food waste</li>
-                  </ul>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {features.map((feature) => {
+                  const Icon = feature.icon;
+                  return (
+                    <div
+                      key={feature.title}
+                      className="rounded-3xl border border-emerald-100 bg-[#f9fdf9] p-6 shadow-sm"
+                    >
+                      <div className="inline-flex rounded-2xl bg-white p-3 text-emerald-700 shadow-sm ring-1 ring-emerald-100">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="mt-5 text-lg font-bold text-slate-950">
+                        {feature.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-7 text-slate-600">
+                        {feature.description}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="rounded-[32px] border border-emerald-100 bg-slate-950 p-8 text-white shadow-2xl shadow-slate-200 sm:p-10 lg:p-12">
+            <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
+                  Chef Lumi
+                </p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+                  Your calm AI kitchen assistant.
+                </h2>
+                <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
+                  Chef Lumi helps you decide what to make from the food you
+                  already have, suggests ideas from different cuisines, and
+                  helps reduce the stress of daily meal decisions.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <a
+                    href="#download"
+                    className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-semibold text-slate-950 transition hover:bg-emerald-50"
+                  >
+                    Download FridgeSmart
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="#amazon-picks"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 font-semibold text-white transition hover:bg-white/5"
+                  >
+                    Explore Amazon Picks
+                    <ShoppingCart className="h-4 w-4" />
+                  </a>
                 </div>
               </div>
-            </div>
-          </section>
-        </div>
-      </section>
 
-      <section id="features" className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
-        <div className="rounded-[2rem] bg-white p-6 shadow-[0_20px_60px_rgba(20,33,61,0.06)] lg:p-8">
-          <div className="max-w-3xl">
-            <div className="text-sm font-black uppercase tracking-[0.18em] text-[#7A9C2F]">
-              Why people use FridgeSmart
-            </div>
-            <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
-              The easiest way to make your kitchen feel organized again
-            </h2>
-            <p className="mt-4 text-base leading-8 text-[#14213D]/72">
-              FridgeSmart is designed to help you waste less food, shop smarter, and make better
-              meal decisions without overthinking what is in your fridge.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-[1.7rem] bg-[#FAFAF7] p-6 shadow-[0_10px_25px_rgba(20,33,61,0.04)]"
-              >
-                <div className="h-11 w-11 rounded-2xl bg-[#FFF2E9]" />
-                <h3 className="mt-5 text-xl font-black leading-tight">{feature.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#14213D]/70">{feature.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="how-it-works" className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
-        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="rounded-[2rem] bg-[#EEF6E8] p-8 shadow-[0_20px_50px_rgba(20,33,61,0.05)]">
-            <div className="text-sm font-black uppercase tracking-[0.18em] text-[#7A9C2F]">
-              How it works
-            </div>
-            <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
-              Three simple steps from food clutter to food clarity
-            </h2>
-            <p className="mt-4 text-base leading-8 text-[#14213D]/72">
-              FridgeSmart keeps things practical. Add what you have, see what needs attention, and
-              get help figuring out what to cook next.
-            </p>
-          </div>
-
-          <div className="space-y-5">
-            {howItWorks.map((item) => (
-              <div
-                key={item.step}
-                className="rounded-[2rem] bg-white p-6 shadow-[0_20px_50px_rgba(20,33,61,0.06)]"
-              >
-                <div className="flex items-start gap-5">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#FFF2E9] text-lg font-black text-[#F08A5D]">
-                    {item.step}
+              <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                  <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-white/10">
+                    <Image
+                      src="/chef-lumi.png"
+                      alt="Chef Lumi avatar"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div>
-                    <h3 className="text-xl font-black leading-tight">{item.title}</h3>
-                    <p className="mt-3 text-base leading-7 text-[#14213D]/72">{item.text}</p>
+                    <div className="font-semibold">Chef Lumi</div>
+                    <div className="text-sm text-slate-400">
+                      Live suggestion preview
+                    </div>
                   </div>
                 </div>
+
+                <div className="mt-5 space-y-3 text-sm leading-7 text-slate-300">
+                  <div className="rounded-2xl bg-white/5 p-4">
+                    You have eggs, spinach, mushrooms, tortillas, and cheese.
+                  </div>
+                  <div className="rounded-2xl bg-emerald-500/15 p-4 text-emerald-100">
+                    Make a breakfast wrap now. Your spinach should be used
+                    first. You only need salsa if you want to complete the meal.
+                  </div>
+                  <div className="rounded-2xl bg-white/5 p-4">
+                    I can also give you a Mediterranean, Mexican, or
+                    high-protein version.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white">
+          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+                  Early feedback
+                </p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+                  Built for real kitchens and real routines.
+                </h2>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#f6faf6] px-4 py-2 text-sm font-medium text-slate-700">
+                <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+                Focused on saving food, time, and money
+              </div>
+            </div>
+
+            <div className="mt-10 grid gap-6 lg:grid-cols-3">
+              {testimonials.map((item) => (
+                <div
+                  key={item.name}
+                  className="rounded-3xl border border-emerald-100 bg-[#f9fdf9] p-6 shadow-sm"
+                >
+                  <div className="mb-4 flex items-center gap-1 text-amber-400">
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                  </div>
+                  <p className="text-base leading-8 text-slate-700">
+                    “{item.quote}”
+                  </p>
+                  <div className="mt-5 text-sm font-semibold text-slate-950">
+                    {item.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="amazon-picks"
+          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+        >
+          <div className="mb-8">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+              Amazon Picks
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+              Smart shopping for what your kitchen actually needs.
+            </h2>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
+              FridgeSmart helps you figure out what you already have, what is
+              running low, and what makes sense to reorder instead of buying
+              blindly.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                title: "Kitchen staples",
+                text: "Restock the basics you use often without overbuying.",
+                query: "kitchen staples groceries",
+              },
+              {
+                title: "Healthy meal add-ons",
+                text: "Fill ingredient gaps to complete meals Chef Lumi suggests.",
+                query: "healthy grocery essentials",
+              },
+              {
+                title: "Quick dinner helpers",
+                text: "Useful add-ons for fast meals on busy nights.",
+                query: "quick dinner pantry items",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm"
+              >
+                <h3 className="text-xl font-bold text-slate-950">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">
+                  {item.text}
+                </p>
+
+                <Link
+                  href={`https://www.amazon.com/s?k=${encodeURIComponent(
+                    item.query
+                  )}&tag=fridgesmartap-20`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-500"
+                >
+                  View Amazon picks
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="rounded-[2rem] bg-white p-8 shadow-[0_20px_60px_rgba(20,33,61,0.06)]">
-            <div className="text-sm font-black uppercase tracking-[0.18em] text-[#F08A5D]">
-              Meet Chef Lumi
+        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+          <div className="rounded-[32px] border border-emerald-100 bg-gradient-to-br from-emerald-600 to-emerald-700 p-8 text-white shadow-xl sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-100">
+                Ready to start?
+              </p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+                Scan your fridge. Catch what is expiring. Decide dinner faster.
+              </h2>
+              <p className="mt-4 text-lg leading-8 text-emerald-50/95">
+                Download FridgeSmart and turn the food you already have into
+                better meals, fewer wasted groceries, and smarter shopping
+                decisions.
+              </p>
             </div>
-            <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
-              Your kitchen assistant for faster meal decisions
-            </h2>
-            <p className="mt-4 text-base leading-8 text-[#14213D]/72">
-              Chef Lumi helps you turn ingredients already sitting in your kitchen into practical
-              meal ideas. That means fewer last-minute takeout decisions and more value from what
-              you already bought.
-            </p>
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[1.5rem] bg-[#FAFAF7] p-5">
-                <div className="text-lg font-black">Cook from what you have</div>
-                <div className="mt-2 text-sm leading-7 text-[#14213D]/70">
-                  Get recipe direction from real ingredients instead of starting from scratch.
-                </div>
-              </div>
-              <div className="rounded-[1.5rem] bg-[#FAFAF7] p-5">
-                <div className="text-lg font-black">Reduce waste naturally</div>
-                <div className="mt-2 text-sm leading-7 text-[#14213D]/70">
-                  Use expiring ingredients first and make smarter food choices every week.
-                </div>
-              </div>
+            <div className="mt-8 flex flex-wrap gap-4 lg:mt-0 lg:justify-end">
+              <AppStoreBadge />
+              <PlayStoreBadge />
             </div>
           </div>
+        </section>
 
-          <div className="rounded-[2rem] bg-[#FFF8F3] p-8 shadow-[0_20px_60px_rgba(20,33,61,0.05)]">
-            <div className="rounded-[1.7rem] bg-white p-6 shadow-[0_15px_40px_rgba(20,33,61,0.06)]">
-              <div className="relative h-56 overflow-hidden rounded-[1.5rem] bg-[#EEF6E8]">
+        <footer className="border-t border-emerald-100 bg-white">
+          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+            <div className="flex items-center gap-3">
+              <div className="relative h-10 w-10 overflow-hidden rounded-2xl border border-emerald-100 bg-[#f6faf6]">
                 <Image
-                  src="/assets/chef-lumi.png"
-                  alt="Chef Lumi"
+                  src="/logo.png"
+                  alt="FridgeSmart logo"
                   fill
-                  className="object-contain"
+                  className="object-contain p-1.5"
                 />
               </div>
-
-              <div className="mt-5 text-sm font-black uppercase tracking-[0.16em] text-[#7A9C2F]">
-                Why it matters
-              </div>
-              <h3 className="mt-3 text-2xl font-black leading-tight">
-                Most households do not need more groceries. They need more visibility.
-              </h3>
-              <p className="mt-4 text-base leading-7 text-[#14213D]/72">
-                FridgeSmart helps you see what is already there, use it in time, and shop more
-                intentionally. That is how you save money without feeling like you are trying
-                harder.
-              </p>
-
-              <div className="mt-6 rounded-[1.4rem] bg-[#EEF3FF] p-5">
-                <div className="text-sm font-black uppercase tracking-[0.14em] text-[#14213D]">
-                  FridgeSmart promise
-                </div>
-                <p className="mt-2 text-sm leading-7 text-[#14213D]/72">
-                  Less guessing. Less waste. More value from the food you already bring home.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="shop" className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="rounded-[2rem] bg-white p-8 shadow-[0_20px_60px_rgba(20,33,61,0.06)]">
-            <div className="text-sm font-black uppercase tracking-[0.18em] text-[#F08A5D]">
-              Shop smarter
-            </div>
-            <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
-              Buy what you actually need, not what you forgot you already had
-            </h2>
-            <p className="mt-4 text-base leading-8 text-[#14213D]/72">
-              FridgeSmart helps households see what is already in the kitchen, catch what is
-              running low, and make smarter shopping decisions. That means fewer duplicate
-              purchases and more useful restocks.
-            </p>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-[1.5rem] bg-[#FAFAF7] p-5">
-                <div className="text-lg font-black">Restock essentials</div>
-                <div className="mt-2 text-sm leading-7 text-[#14213D]/70">
-                  Refill what you truly need instead of guessing at the store.
-                </div>
-              </div>
-
-              <div className="rounded-[1.5rem] bg-[#FAFAF7] p-5">
-                <div className="text-lg font-black">Kitchen organization</div>
-                <div className="mt-2 text-sm leading-7 text-[#14213D]/70">
-                  Discover products that help keep food visible, labeled, and easy to use.
-                </div>
-              </div>
-
-              <div className="rounded-[1.5rem] bg-[#FAFAF7] p-5">
-                <div className="text-lg font-black">Less waste, more value</div>
-                <div className="mt-2 text-sm leading-7 text-[#14213D]/70">
-                  Make every grocery trip work harder by using more of what you buy.
+              <div>
+                <div className="font-semibold text-slate-950">FridgeSmart</div>
+                <div className="text-sm text-slate-500">
+                  Waste less. Save more. Decide faster.
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 rounded-[1.6rem] bg-[#FFF8F3] p-5">
-              <div className="flex items-center gap-4">
-                <div className="relative h-16 w-16 overflow-hidden rounded-2xl bg-white">
-                  <Image
-                    src="/assets/female-avatar.png"
-                    alt="FridgeSmart shopper"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <div className="text-sm font-black uppercase tracking-[0.14em] text-[#F08A5D]">
-                    Real-life value
-                  </div>
-                  <div className="mt-1 text-base font-bold text-[#14213D]">
-                    Shop with confidence, not guesswork
-                  </div>
-                </div>
-              </div>
-              <p className="mt-4 text-sm leading-7 text-[#14213D]/72">
-                FridgeSmart makes it easier to know what to restock, what to skip, and which
-                kitchen tools help keep food fresher and easier to manage.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-[2rem] bg-[#FFF8F3] p-8 shadow-[0_20px_60px_rgba(20,33,61,0.05)]">
-            <div className="rounded-[1.7rem] bg-white p-6 shadow-[0_15px_40px_rgba(20,33,61,0.06)]">
-              <div className="text-sm font-black uppercase tracking-[0.16em] text-[#7A9C2F]">
-                FridgeSmart kitchen picks
-              </div>
-
-              <div className="mt-5 space-y-4">
-                {shopCards.map((card) => (
-                  <a
-                    key={card.title}
-                    href={amazonUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`block rounded-[1.25rem] p-4 ${card.tone} transition hover:scale-[1.02] hover:shadow-lg`}
-                  >
-                    <div className="text-base font-black text-[#14213D]">{card.title}</div>
-                    <div className="mt-1 text-sm leading-7 text-[#14213D]/70">{card.text}</div>
-                    <div className="mt-3 text-sm font-bold text-[#F08A5D]">View on Amazon →</div>
-                  </a>
-                ))}
-              </div>
-
-              <a
-                href={amazonUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-[#F08A5D] px-6 py-4 text-base font-black text-white shadow-[0_10px_30px_rgba(240,138,93,0.22)]"
-              >
-                Shop on Amazon
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-600">
+              <a href="#how-it-works" className="hover:text-slate-950">
+                How it works
               </a>
-
-              <p className="mt-4 text-xs leading-6 text-[#14213D]/55">
-                As an Amazon Associate, FridgeSmart may earn from qualifying purchases.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-6 lg:px-10">
-        <div className="rounded-[2rem] bg-white p-8 shadow-[0_20px_60px_rgba(20,33,61,0.06)]">
-          <div className="text-sm font-black uppercase tracking-[0.18em] text-[#7A9C2F]">
-            FridgeSmart FAQ
-          </div>
-
-          <h2 className="mt-3 text-3xl font-black md:text-5xl">
-            Everything you need to know
-          </h2>
-
-          <div className="mt-6 space-y-6">
-            <div>
-              <h3 className="text-lg font-black">What is FridgeSmart?</h3>
-              <p className="text-[#14213D]/70">
-                FridgeSmart is a smart fridge inventory app that helps you track food, reduce
-                waste, and cook meals using ingredients you already have.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-black">How does FridgeSmart help save money?</h3>
-              <p className="text-[#14213D]/70">
-                By tracking expiration dates and helping you use food before it goes bad,
-                FridgeSmart helps reduce grocery waste and unnecessary purchases.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-black">Can FridgeSmart help with grocery shopping?</h3>
-              <p className="text-[#14213D]/70">
-                Yes. FridgeSmart helps you identify what you actually need so you can shop smarter
-                and avoid buying duplicate items.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-black">What makes FridgeSmart different from other apps?</h3>
-              <p className="text-[#14213D]/70">
-                FridgeSmart combines inventory tracking, expiration alerts, AI recipes, and smart
-                shopping recommendations in one simple experience.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="download" className="mx-auto max-w-7xl px-6 pb-14 pt-6 lg:px-10">
-        <div className="rounded-[2.25rem] bg-white p-8 shadow-[0_20px_60px_rgba(20,33,61,0.07)] lg:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <div className="text-sm font-black uppercase tracking-[0.18em] text-[#7A9C2F]">
-                Download FridgeSmart
-              </div>
-              <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
-                Start making better food decisions today
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-[#14213D]/72">
-                Track inventory, catch expiring items, and get recipe ideas from what is already in
-                your kitchen.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <a
-                href={appStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-2xl bg-[#F08A5D] px-6 py-4 text-base font-black text-white shadow-[0_10px_30px_rgba(240,138,93,0.22)]"
-              >
-                App Store
+              <a href="#features" className="hover:text-slate-950">
+                Features
               </a>
-              <a
-                href={playStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-2xl border border-[#14213D]/10 bg-white px-6 py-4 text-base font-black text-[#14213D]"
-              >
-                Google Play
+              <a href="#amazon-picks" className="hover:text-slate-950">
+                Amazon Picks
               </a>
-            </div>
-          </div>
-
-          <footer className="mt-10 flex flex-col gap-4 border-t border-[#14213D]/8 pt-6 text-sm text-[#14213D]/62 lg:flex-row lg:items-center lg:justify-between">
-            <div>© 2026 FridgeSmart. Smarter food tracking for real households.</div>
-            <div className="flex flex-wrap items-center gap-5 font-semibold">
-              <Link href="/login" className="hover:text-[#F08A5D]">
-                Log in
-              </Link>
-              <Link href="/signup" className="hover:text-[#F08A5D]">
-                Sign up
-              </Link>
-              <Link href="/forgot-password" className="hover:text-[#F08A5D]">
-                Forgot password
+              <Link
+                href="mailto:support@fridgesmartapp.com"
+                className="hover:text-slate-950"
+              >
+                support@fridgesmartapp.com
               </Link>
             </div>
-          </footer>
-        </div>
-      </section>
-    </main>
+          </div>
+        </footer>
+      </main>
+
+      <ChefChat />
+    </>
   );
 }
