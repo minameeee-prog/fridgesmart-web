@@ -2,6 +2,18 @@
 
 import { useEffect, useState } from "react";
 
+type HeroScreen = {
+  src: string;
+  label: string;
+  alt: string;
+  lumiMessage: string;
+  statusTitle: string;
+  statusText: string;
+  statusBold: string;
+  savingsAmount: string;
+  savingsLabel: string;
+};
+
 export default function HomePage() {
   const navItems = [
     { label: "How It Works", href: "#how-it-works" },
@@ -11,26 +23,53 @@ export default function HomePage() {
     { label: "Download", href: "#download" },
   ];
 
-  const heroScreens = [
+  const heroScreens: HeroScreen[] = [
     {
       src: "/hero-main.png",
       label: "Home",
       alt: "FridgeSmart home screen",
+      lumiMessage:
+        "You already have chicken, broccoli, rice, garlic, and soy sauce. Try a quick stir-fry tonight instead of ordering out.",
+      statusTitle: "Smart suggestion",
+      statusText: "Your fridge already has enough for a quick dinner tonight.",
+      statusBold: "Use what you have before shopping again.",
+      savingsAmount: "$42",
+      savingsLabel: "saved this month",
     },
     {
       src: "/hero-scan.png",
       label: "Scan",
       alt: "FridgeSmart scan screen",
+      lumiMessage: "I found 14 items in your fridge. Review them and start tracking freshness.",
+      statusTitle: "Scan complete",
+      statusText:
+        "Your latest scan captured items ready for tracking and recipe planning.",
+      statusBold: "Now review and confirm what was found.",
+      savingsAmount: "$18",
+      savingsLabel: "saved from smarter scans",
     },
     {
       src: "/hero-results.png",
       label: "Results",
       alt: "FridgeSmart results screen",
+      lumiMessage: "These 3 items may expire soon. Let’s use them before they go to waste.",
+      statusTitle: "Expiring soon",
+      statusText: "Milk, spinach, and strawberries may need attention soon.",
+      statusBold: "Use them before they get forgotten.",
+      savingsAmount: "$31",
+      savingsLabel: "saved from reduced waste",
     },
     {
       src: "/hero-shopping.png",
       label: "Shopping",
       alt: "FridgeSmart shopping screen",
+      lumiMessage: "You’re low on eggs, milk, and spinach. I can help you restock with a smarter plan.",
+      statusTitle: "Low stock",
+      statusText:
+        "FridgeSmart can help you restock what is missing or running low.",
+      statusBold: "Shop with a smarter plan.",
+      savingsAmount: "$27",
+      savingsLabel: "saved through better planning",
     },
   ];
 
@@ -131,18 +170,18 @@ export default function HomePage() {
   ];
 
   const [activeScreen, setActiveScreen] = useState(0);
+  const currentScreen = heroScreens[activeScreen];
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = window.setInterval(() => {
       setActiveScreen((prev) => (prev + 1) % heroScreens.length);
-    }, 3000);
+    }, 3200);
 
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [heroScreens.length]);
 
   return (
     <main className="min-h-screen bg-[#f7f4ee] text-[#1f2937]">
-      {/* HEADER */}
       <header className="sticky top-0 z-50 border-b border-black/5 bg-[#f7f4ee]/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <a href="#" className="flex items-center gap-3">
@@ -182,7 +221,6 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
           <div>
@@ -244,8 +282,8 @@ export default function HomePage() {
           </div>
 
           <div className="relative flex items-center justify-center">
-            <div className="relative mx-auto">
-              <div className="relative h-[620px] w-[300px] rounded-[2.8rem] border-[10px] border-[#111827] bg-black p-2 shadow-2xl">
+            <div className="relative mx-auto w-[500px]">
+              <div className="relative mx-auto h-[620px] w-[300px] rounded-[2.8rem] border-[10px] border-[#111827] bg-black p-2 shadow-2xl">
                 <div className="absolute left-1/2 top-2 z-20 h-5 w-28 -translate-x-1/2 rounded-full bg-[#111827]" />
 
                 <div className="relative h-full overflow-hidden rounded-[2.2rem] bg-white">
@@ -281,48 +319,69 @@ export default function HomePage() {
               </div>
 
               <div className="mt-3 text-center text-sm font-medium text-[#6b7280]">
-                {heroScreens[activeScreen].label}
+                {currentScreen.label}
               </div>
-            </div>
 
-            <div className="absolute left-0 top-24 hidden lg:block">
-  <div className="flex items-start gap-3">
-    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-xl ring-1 ring-black/5">
-      <img
-        src="/chef-lumi.png"
-        alt="Chef Lumi"
-        className="h-12 w-12 rounded-full object-cover"
-      />
-    </div>
+              <div className="absolute -left-1 top-24 hidden xl:block">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-xl ring-1 ring-black/5">
+                    <img
+                      src="/chef-lumi.png"
+                      alt="Chef Lumi"
+                      className="h-12 w-12 rounded-full object-cover"
+                    />
+                  </div>
 
-    <div className="relative max-w-[260px] rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-black/5">
-      <div className="absolute -left-2 top-5 h-4 w-4 rotate-45 bg-white ring-l-1 ring-t-1 ring-black/5" />
-      <p className="text-sm font-semibold text-[#111827]">Chef Lumi</p>
-      <p className="mt-2 text-sm leading-6 text-[#4b5563]">
-        <span className="inline-block overflow-hidden whitespace-nowrap border-r-2 border-[#94a3b8] align-bottom animate-[typing_4.5s_steps(60,end)_infinite,blink_0.8s_step-end_infinite]">
-          You already have chicken, broccoli, rice, garlic, and soy sauce. Try a quick stir-fry tonight instead of ordering out.
-        </span>
-      </p>
-    </div>
-  </div>
-</div>
+                  <div className="relative max-w-[245px] rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-black/5">
+                    <div className="absolute -left-2 top-5 h-4 w-4 rotate-45 bg-white ring-black/5" />
+                    <p className="text-sm font-semibold text-[#111827]">
+                      Chef Lumi
+                    </p>
+                    <p className="mt-2 min-h-[74px] text-sm leading-6 text-[#4b5563]">
+                      {currentScreen.lumiMessage}
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-            <div className="absolute right-0 top-12 hidden max-w-[220px] rounded-2xl bg-white p-4 shadow-xl ring-1 ring-black/5 lg:block">
-              <p className="text-sm font-semibold text-[#111827]">
-                Expiring soon
-              </p>
-              <p className="mt-2 text-sm leading-6 text-[#4b5563]">
-                Milk, spinach, and strawberries may need attention soon.
-              </p>
-              <p className="mt-2 text-sm font-medium text-[#111827]">
-                Use them before they get forgotten.
-              </p>
+              <div className="absolute -right-2 top-10 hidden xl:block">
+                <div className="max-w-[235px] rounded-2xl bg-white p-5 shadow-xl ring-1 ring-black/5">
+                  <p className="text-sm font-semibold text-[#111827]">
+                    {currentScreen.statusTitle}
+                  </p>
+                  <p className="mt-3 text-sm leading-7 text-[#4b5563]">
+                    {currentScreen.statusText}
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-[#111827]">
+                    {currentScreen.statusBold}
+                  </p>
+                </div>
+              </div>
+
+              <div className="absolute right-2 bottom-20 hidden xl:block">
+                <div className="rounded-2xl bg-[#111827] px-5 py-4 text-white shadow-xl">
+                  <p className="text-xs uppercase tracking-[0.18em] text-white/70">
+                    Savings
+                  </p>
+                  <p className="mt-1 text-3xl font-bold">{currentScreen.savingsAmount}</p>
+                  <p className="text-sm text-white/80">{currentScreen.savingsLabel}</p>
+                </div>
+              </div>
+
+              <div className="absolute bottom-[118px] right-[18px] hidden xl:block">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-white shadow-xl">
+                  <img
+                    src="/chef-lumi.png"
+                    alt="Chef Lumi chat icon"
+                    className="h-14 w-14 rounded-full object-cover"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TRUST STRIP */}
       <section className="border-y border-black/5 bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 py-6 text-center sm:grid-cols-3 sm:px-6 lg:px-8">
           <div>
@@ -346,7 +405,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
       <section
         id="how-it-works"
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
@@ -384,7 +442,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* REWARDS */}
       <section id="rewards" className="bg-[#fffaf2]">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -477,7 +534,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* AMAZON PICKS */}
       <section
         id="amazon-picks"
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
@@ -523,7 +579,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
       <section id="testimonials" className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
@@ -557,7 +612,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* DOWNLOAD */}
       <section
         id="download"
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
@@ -599,7 +653,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="border-t border-black/5 bg-[#f7f4ee]">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
