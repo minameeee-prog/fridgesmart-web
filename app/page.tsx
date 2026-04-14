@@ -285,18 +285,27 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="absolute left-0 top-24 hidden max-w-[220px] rounded-2xl bg-white p-4 shadow-xl ring-1 ring-black/5 lg:block">
-              <p className="text-sm font-semibold text-[#111827]">
-                Chef Lumi says
-              </p>
-              <p className="mt-2 text-sm leading-6 text-[#4b5563]">
-                &ldquo;You already have chicken, broccoli, rice, garlic, and soy
-                sauce.&rdquo;
-              </p>
-              <p className="mt-2 text-sm leading-6 text-[#4b5563]">
-                Try a quick stir-fry tonight instead of ordering out.
-              </p>
-            </div>
+            <div className="absolute left-0 top-24 hidden lg:block">
+  <div className="flex items-start gap-3">
+    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-xl ring-1 ring-black/5">
+      <img
+        src="/chef-lumi.png"
+        alt="Chef Lumi"
+        className="h-12 w-12 rounded-full object-cover"
+      />
+    </div>
+
+    <div className="relative max-w-[260px] rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-black/5">
+      <div className="absolute -left-2 top-5 h-4 w-4 rotate-45 bg-white ring-l-1 ring-t-1 ring-black/5" />
+      <p className="text-sm font-semibold text-[#111827]">Chef Lumi</p>
+      <p className="mt-2 text-sm leading-6 text-[#4b5563]">
+        <span className="inline-block overflow-hidden whitespace-nowrap border-r-2 border-[#94a3b8] align-bottom animate-[typing_4.5s_steps(60,end)_infinite,blink_0.8s_step-end_infinite]">
+          You already have chicken, broccoli, rice, garlic, and soy sauce. Try a quick stir-fry tonight instead of ordering out.
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
 
             <div className="absolute right-0 top-12 hidden max-w-[220px] rounded-2xl bg-white p-4 shadow-xl ring-1 ring-black/5 lg:block">
               <p className="text-sm font-semibold text-[#111827]">
