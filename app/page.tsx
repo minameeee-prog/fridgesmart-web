@@ -210,7 +210,7 @@ export default function HomePage() {
                   <img
                     src="/hero-phone.png"
                     alt="FridgeSmart app preview"
-                    className="h-auto w-full object-cover"
+                    className="h-full w-full object-cover object-top"
                   />
                 </div>
               </div>
