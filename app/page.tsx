@@ -532,7 +532,7 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-
+              
               <div className="relative">
                 <div className="absolute -left-8 top-8 hidden h-28 w-28 rounded-full bg-emerald-300/30 blur-3xl lg:block" />
                 <div className="absolute -right-10 bottom-0 hidden h-40 w-40 rounded-full bg-lime-300/30 blur-3xl lg:block" />
@@ -898,7 +898,150 @@ export default function Page() {
             </div>
           </div>
         </section>
+{/* ================== REWARDS SECTION ================== */}
+<section className="mx-auto my-16 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+  <div className="overflow-hidden rounded-[28px] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-yellow-50 shadow-sm">
+    <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:p-10">
+      <div>
+        <div className="inline-flex items-center rounded-full border border-emerald-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+          FridgeSmart Rewards
+        </div>
 
+        <h2 className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          Earn up to a $25 Amazon Gift Card
+        </h2>
+
+        <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+          Complete shopping orders using FridgeSmart recommendations—any items,
+          not just groceries—and send proof of purchase to qualify for rewards.
+        </p>
+
+        <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
+          You’re simply shopping as you normally would. There’s nothing extra to buy—just
+          use FridgeSmart to discover and plan your purchases and get rewarded for it.
+        </p>
+
+        <p className="mt-3 text-sm font-medium text-emerald-700">
+          No extra cost. Just smarter shopping.
+        </p>
+
+        <p className="mt-2 text-sm text-slate-500">
+          Qualifying orders should reflect normal purchases and not small or test transactions.
+        </p>
+
+        <div className="mt-8 grid gap-3 sm:grid-cols-3">
+          <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
+            <p className="text-sm font-semibold text-slate-900">1. Shop normally</p>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              Use FridgeSmart recommendations for items you already plan to buy.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
+            <p className="text-sm font-semibold text-slate-900">2. Save proof</p>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              Keep your order confirmations, receipts, or purchase screenshots.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
+            <p className="text-sm font-semibold text-slate-900">3. Claim rewards</p>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              Send your proof after qualifying orders and we’ll review your submission.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="mailto:support@fridgesmartapp.com?subject=FridgeSmart%20Rewards%20Claim&body=Hi%20FridgeSmart%20team%2C%0A%0AI%E2%80%99d%20like%20to%20submit%20my%20reward%20claim.%0A%0AFridgeSmart%20account%20email%3A%20%0ANumber%20of%20orders%20completed%3A%20%0AOrder%20dates%3A%20%0A%0AI%E2%80%99ve%20attached%20my%20proof%20of%20purchase.%0A"
+            className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+          >
+            Claim by Email
+          </a>
+
+          <a
+            href="#reward-terms"
+            className="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+          >
+            View Terms
+          </a>
+        </div>
+
+        <p className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          Rewards are subject to review. Proof of purchase required. Limit one reward per tier progression. Terms apply.
+        </p>
+      </div>
+
+      <div className="flex h-full items-center">
+        <div className="w-full rounded-3xl bg-slate-900 p-6 text-white shadow-lg">
+          <p className="text-sm font-medium text-emerald-300">Reward Levels</p>
+
+          <div className="mt-5 space-y-4">
+            <div className="rounded-2xl bg-white/10 p-4">
+              <p className="text-sm font-semibold">Starter</p>
+              <p className="mt-1 text-2xl font-bold">3 Orders</p>
+              <p className="mt-1 text-sm text-white/75">$5 Reward</p>
+            </div>
+
+            <div className="rounded-2xl bg-white/10 p-4">
+              <p className="text-sm font-semibold">Smart Shopper</p>
+              <p className="mt-1 text-2xl font-bold">5 Orders</p>
+              <p className="mt-1 text-sm text-white/75">$10 Reward</p>
+            </div>
+
+            <div className="rounded-2xl bg-white/10 p-4">
+              <p className="text-sm font-semibold">Power User</p>
+              <p className="mt-1 text-2xl font-bold">10 Orders</p>
+              <p className="mt-1 text-sm text-white/75">$25 Reward</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* ================== TERMS ================== */}
+<section
+  id="reward-terms"
+  className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+>
+  <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <h3 className="text-2xl font-bold text-slate-900">Reward Terms</h3>
+
+    <div className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+      <p>
+        Users may qualify for rewards by completing eligible shopping orders using
+        FridgeSmart recommendations and submitting valid proof of purchase for review.
+      </p>
+
+      <p>
+        Eligible purchases may include any qualifying items and are not limited to groceries.
+      </p>
+
+      <p>
+        Proof of purchase may include order confirmations, receipts, screenshots,
+        or similar documentation that clearly shows the order details.
+      </p>
+
+      <p>
+        Qualifying orders must represent normal consumer purchases. Small, test,
+        repeated minimal, canceled, refunded, duplicate, or suspicious transactions
+        may not be eligible.
+      </p>
+
+      <p>
+        Limit one reward per tier progression per user. FridgeSmart reserves the right
+        to review and approve all submissions.
+      </p>
+
+      <p>
+        FridgeSmart may modify or end this offer at any time.
+      </p>
+    </div>
+  </div>
+</section>
         <section
           id="amazon-picks"
           className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
