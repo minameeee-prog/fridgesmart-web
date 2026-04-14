@@ -107,33 +107,22 @@ export default function HomePage() {
     },
   ];
 
-  const heroScreens = [
-    {
-      src: "/hero-scan.png",
-      alt: "FridgeSmart fridge scan screen",
-      label: "Scan",
-    },
-    {
-      src: "/hero-results.png",
-      alt: "FridgeSmart results and expiring items screen",
-      label: "Results",
-    },
-    {
-      src: "/hero-shopping.png",
-      alt: "FridgeSmart shopping screen",
-      label: "Shopping",
-    },
-  ];
+const heroScreens = [
+  { src: "/hero-main.png", label: "Home" },
+  { src: "/hero-scan.png", label: "Scan" },
+  { src: "/hero-results.png", label: "Results" },
+  { src: "/hero-shopping.png", label: "Shopping" },
+];
 
-  const [activeScreen, setActiveScreen] = useState(0);
+const [activeScreen, setActiveScreen] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveScreen((prev) => (prev + 1) % heroScreens.length);
-    }, 2800);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setActiveScreen((prev) => (prev + 1) % heroScreens.length);
+  }, 3000);
 
-    return () => clearInterval(interval);
-  }, [heroScreens.length]);
+  return () => clearInterval(interval);
+}, []);
 
   return (
     <main className="min-h-screen bg-[#f7f4ee] text-[#1f2937]">
@@ -257,21 +246,20 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="mt-5 flex items-center justify-center gap-2">
-                {heroScreens.map((screen, index) => (
-                  <button
-                    key={screen.label}
-                    type="button"
-                    aria-label={`Show ${screen.label} screen`}
-                    onClick={() => setActiveScreen(index)}
-                    className={`h-2.5 rounded-full transition-all ${
-                      index === activeScreen
-                        ? "w-8 bg-[#111827]"
-                        : "w-2.5 bg-[#cbd5e1] hover:bg-[#94a3b8]"
-                    }`}
-                  />
-                ))}
-              </div>
+              <div className="relative h-full overflow-hidden rounded-[2.2rem] bg-white">
+  {heroScreens.map((screen, index) => (
+    <img
+      key={screen.src}
+      src={screen.src}
+      alt={screen.label}
+      className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-700 ${
+        index === activeScreen
+          ? "opacity-100 scale-100"
+          : "opacity-0 scale-[1.02]"
+      }`}
+    />
+  ))}
+</div>
 
               <div className="mt-3 text-center text-sm font-medium text-[#6b7280]">
                 {heroScreens[activeScreen].label}
