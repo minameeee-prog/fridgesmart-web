@@ -16,21 +16,21 @@ export default function HomePage() {
     },
     {
       step: "2",
-      title: "Track freshness automatically",
+      title: "Track freshness",
       description:
         "Get alerts for items that may expire soon so you can use food before it gets wasted.",
     },
     {
       step: "3",
-      title: "Cook smarter with Chef Lumi",
+      title: "Cook with Chef Lumi",
       description:
         "Get recipe ideas from different cuisines based on the ingredients already in your kitchen.",
     },
     {
       step: "4",
-      title: "Restock with less guesswork",
+      title: "Restock smarter",
       description:
-        "Build a smarter shopping plan from what is missing, what is running low, and what you actually use.",
+        "Plan shopping around what is missing, what is running low, and what you actually use.",
     },
   ];
 
@@ -39,13 +39,13 @@ export default function HomePage() {
       badge: "Start fast",
       orders: "1 qualifying order",
       reward: "$3 reward",
-      note: "A low-friction first step to help new users get started.",
+      note: "A low-friction first step that makes the first order easier.",
     },
     {
       badge: "Build the habit",
       orders: "5 qualifying orders",
       reward: "$10 reward",
-      note: "A strong mid-point reward that keeps people coming back.",
+      note: "A strong mid-tier reward to keep users coming back.",
     },
     {
       badge: "Top tier",
@@ -78,34 +78,34 @@ export default function HomePage() {
 
   const amazonPicks = [
     {
-      title: "Healthy Pantry Staples Bundle",
-      subtitle: "Best for weekly restocking",
+      title: "Healthy Pantry Staples",
+      subtitle: "Weekly restock idea",
       description:
-        "A curated essentials bundle idea for rice, oats, canned beans, olive oil, pasta, and shelf-stable basics.",
+        "A curated essentials direction for rice, oats, canned beans, olive oil, pasta, and shelf-stable basics.",
       href: "https://www.amazon.com/s?k=rice+oats+canned+beans+olive+oil+pasta&tag=fridgesmartap-20",
-      cta: "Shop pantry bundle",
+      cta: "Shop pantry picks",
     },
     {
       title: "Quick Breakfast Restock",
-      subtitle: "Best for busy mornings",
+      subtitle: "Busy mornings",
       description:
-        "A practical breakfast bundle idea for cereal, oatmeal, peanut butter, granola bars, and healthy add-ons.",
+        "A practical breakfast direction for cereal, oatmeal, peanut butter, granola bars, and healthy add-ons.",
       href: "https://www.amazon.com/s?k=cereal+oatmeal+peanut+butter+granola+bars&tag=fridgesmartap-20",
-      cta: "Shop breakfast bundle",
+      cta: "Shop breakfast picks",
     },
     {
       title: "Easy Dinner Essentials",
-      subtitle: "Best for fast meal planning",
+      subtitle: "Fast meal planning",
       description:
-        "A practical dinner bundle idea for pasta, sauce, broth, seasonings, grains, and common weeknight staples.",
+        "A practical dinner direction for pasta, sauce, broth, seasonings, grains, and common weeknight staples.",
       href: "https://www.amazon.com/s?k=pasta+sauce+broth+seasonings+grains&tag=fridgesmartap-20",
-      cta: "Shop dinner bundle",
+      cta: "Shop dinner picks",
     },
   ];
 
   return (
     <main className="min-h-screen bg-[#f7f4ee] text-[#1f2937]">
-      {/* NAVBAR */}
+      {/* HEADER */}
       <header className="sticky top-0 z-50 border-b border-black/5 bg-[#f7f4ee]/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <a href="#" className="flex items-center gap-3">
@@ -115,7 +115,9 @@ export default function HomePage() {
               className="h-11 w-11 rounded-xl object-contain"
             />
             <div>
-              <p className="text-lg font-bold tracking-tight">FridgeSmart</p>
+              <p className="text-lg font-bold tracking-tight text-[#111827]">
+                FridgeSmart
+              </p>
               <p className="text-xs text-[#6b7280]">
                 Waste less. Save more. Decide faster.
               </p>
@@ -127,7 +129,7 @@ export default function HomePage() {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-[#374151] transition hover:text-[#111827]"
+                className="text-sm font-medium text-[#4b5563] transition hover:text-[#111827]"
               >
                 {item.label}
               </a>
@@ -145,21 +147,23 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
           <div>
-            <div className="mb-5 inline-flex items-center rounded-full border border-[#d1d5db] bg-white px-4 py-2 text-sm font-medium text-[#374151] shadow-sm">
+            <div className="mb-6 inline-flex items-center rounded-full border border-[#d1d5db] bg-white px-4 py-2 text-sm font-medium text-[#374151] shadow-sm">
               Your fridge isn&apos;t empty — you just don&apos;t know what&apos;s in it yet.
             </div>
 
-            <h1 className="max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-[#111827] sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-2xl text-4xl font-extrabold leading-[0.95] tracking-tight text-[#0f172a] sm:text-5xl lg:text-7xl">
               Scan your fridge.
               <br />
               Track expiration.
               <br />
-              Cook from what you already have.
+              Cook from what you
+              <br />
+              already have.
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4b5563]">
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-[#4b5563]">
               FridgeSmart helps you see what is in your fridge, catch items
               before they expire, get recipe ideas from different cuisines, and
               restock more intentionally through smart shopping suggestions.
@@ -182,7 +186,7 @@ export default function HomePage() {
 
             <div className="mt-8 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
               <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
-                <p className="text-sm text-[#6b7280]">Scan & detect</p>
+                <p className="text-sm text-[#6b7280]">Scan &amp; detect</p>
                 <p className="mt-1 text-lg font-bold text-[#111827]">
                   Fridge + receipt support
                 </p>
@@ -202,22 +206,22 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative">
-            <div className="mx-auto flex max-w-md items-center justify-center">
-              <div className="relative w-[290px] rounded-[2.5rem] border-[10px] border-[#111827] bg-black p-2 shadow-2xl">
-                <div className="absolute left-1/2 top-2 h-5 w-28 -translate-x-1/2 rounded-full bg-[#111827]" />
-                <div className="overflow-hidden rounded-[2rem] bg-white">
-                  <img
-                    src="/hero-phone.png"
-                    alt="FridgeSmart app preview"
-                    className="h-full w-full object-cover object-top"
-                  />
-                </div>
+          <div className="relative flex items-center justify-center">
+            <div className="relative mx-auto h-[620px] w-[300px] rounded-[2.8rem] border-[10px] border-[#111827] bg-black p-2 shadow-2xl">
+              <div className="absolute left-1/2 top-2 h-5 w-28 -translate-x-1/2 rounded-full bg-[#111827]" />
+              <div className="h-full overflow-hidden rounded-[2.2rem] bg-white">
+                <img
+                  src="/hero-phone.png"
+                  alt="FridgeSmart app preview"
+                  className="h-full w-full object-cover object-top"
+                />
               </div>
             </div>
 
-            <div className="absolute -left-2 top-8 hidden max-w-[220px] rounded-2xl bg-white p-4 shadow-xl ring-1 ring-black/5 lg:block">
-              <p className="text-sm font-semibold text-[#111827]">Chef Lumi says</p>
+            <div className="absolute left-0 top-24 hidden max-w-[220px] rounded-2xl bg-white p-4 shadow-xl ring-1 ring-black/5 lg:block">
+              <p className="text-sm font-semibold text-[#111827]">
+                Chef Lumi says
+              </p>
               <p className="mt-2 text-sm leading-6 text-[#4b5563]">
                 &ldquo;You already have chicken, broccoli, rice, garlic, and soy
                 sauce.&rdquo;
@@ -227,7 +231,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="absolute -right-2 bottom-8 hidden max-w-[220px] rounded-2xl bg-white p-4 shadow-xl ring-1 ring-black/5 lg:block">
+            <div className="absolute right-0 top-12 hidden max-w-[220px] rounded-2xl bg-white p-4 shadow-xl ring-1 ring-black/5 lg:block">
               <p className="text-sm font-semibold text-[#111827]">
                 Expiring soon
               </p>
@@ -242,7 +246,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BRAND STRIP */}
+      {/* TRUST STRIP */}
       <section className="border-y border-black/5 bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 py-6 text-center sm:grid-cols-3 sm:px-6 lg:px-8">
           <div>
@@ -267,7 +271,10 @@ export default function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section
+        id="how-it-works"
+        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+      >
         <div className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b45309]">
             How it works
@@ -290,7 +297,9 @@ export default function HomePage() {
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff7ed] text-lg font-bold text-[#b45309]">
                 {item.step}
               </div>
-              <h3 className="text-xl font-semibold text-[#111827]">{item.title}</h3>
+              <h3 className="text-xl font-semibold text-[#111827]">
+                {item.title}
+              </h3>
               <p className="mt-3 text-sm leading-7 text-[#4b5563]">
                 {item.description}
               </p>
@@ -312,8 +321,8 @@ export default function HomePage() {
               </h2>
               <p className="mt-4 max-w-2xl text-lg leading-8 text-[#4b5563]">
                 You&apos;re simply shopping as you normally would. There&apos;s
-                nothing extra to buy — just use FridgeSmart to plan your shopping
-                and get rewarded for it.
+                nothing extra to buy — just use FridgeSmart to plan your
+                shopping and get rewarded for it.
               </p>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -357,8 +366,8 @@ export default function HomePage() {
                     .
                   </p>
                   <p>
-                    Please include the email used with your FridgeSmart account
-                    so claims can be reviewed quickly.
+                    Include the email used with your FridgeSmart account so
+                    claims can be reviewed faster.
                   </p>
                 </div>
               </div>
@@ -393,18 +402,20 @@ export default function HomePage() {
       </section>
 
       {/* AMAZON PICKS */}
-      <section id="amazon-picks" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section
+        id="amazon-picks"
+        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+      >
         <div className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b45309]">
             Amazon Picks
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl">
-            Curated shopping ideas that match real kitchen needs
+            Curated shopping ideas for real kitchen needs
           </h2>
           <p className="mt-4 text-lg leading-8 text-[#4b5563]">
-            Instead of dumping you into random search pages, FridgeSmart should
-            feel more intentional. These curated shopping ideas are organized by
-            purpose so users know exactly what they are clicking.
+            Organize your shopping by purpose so users know what they are
+            clicking instead of landing on vague, random search pages.
           </p>
         </div>
 
@@ -434,13 +445,6 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-
-        <div className="mt-6 rounded-2xl border border-dashed border-[#d1d5db] bg-[#fcfcfc] p-4 text-sm leading-7 text-[#6b7280]">
-          Replace these Amazon links with your final curated product links,
-          storefront links, or hand-picked product pages whenever you are ready.
-          The structure is already set up so you can swap the URLs later without
-          redesigning the page.
-        </div>
       </section>
 
       {/* TESTIMONIALS */}
@@ -454,7 +458,7 @@ export default function HomePage() {
               Built with feedback from real households
             </h2>
             <p className="mt-4 text-lg leading-8 text-[#4b5563]">
-              Real trust matters more than generic marketing language.
+              Trust comes from real use, clear value, and repeatable results.
             </p>
           </div>
 
@@ -478,7 +482,10 @@ export default function HomePage() {
       </section>
 
       {/* DOWNLOAD */}
-      <section id="download" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section
+        id="download"
+        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+      >
         <div className="rounded-[2rem] bg-[#111827] px-6 py-10 text-white sm:px-10 sm:py-12">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
             <div>
@@ -535,8 +542,8 @@ export default function HomePage() {
             </div>
 
             <p className="mt-4 max-w-xl text-sm leading-7 text-[#6b7280]">
-              FridgeSmart helps households see what they have, use food before it
-              expires, and make better meal and shopping decisions.
+              FridgeSmart helps households see what they have, use food before
+              it expires, and make better meal and shopping decisions.
             </p>
           </div>
 
@@ -568,28 +575,13 @@ export default function HomePage() {
                 >
                   support@fridgesmartapp.com
                 </a>
-                <a
-                  href="https://www.instagram.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#111827]"
-                >
+                <a href="#" className="hover:text-[#111827]">
                   Instagram
                 </a>
-                <a
-                  href="https://www.tiktok.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#111827]"
-                >
+                <a href="#" className="hover:text-[#111827]">
                   TikTok
                 </a>
-                <a
-                  href="https://www.youtube.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#111827]"
-                >
+                <a href="#" className="hover:text-[#111827]">
                   YouTube
                 </a>
               </div>
