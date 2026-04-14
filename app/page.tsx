@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function HomePage() {
   const navItems = [
     { label: "How It Works", href: "#how-it-works" },
@@ -103,9 +107,36 @@ export default function HomePage() {
     },
   ];
 
+  const heroScreens = [
+    {
+      src: "/hero-scan.png",
+      alt: "FridgeSmart fridge scan screen",
+      label: "Scan",
+    },
+    {
+      src: "/hero-results.png",
+      alt: "FridgeSmart results and expiring items screen",
+      label: "Results",
+    },
+    {
+      src: "/hero-shopping.png",
+      alt: "FridgeSmart shopping screen",
+      label: "Shopping",
+    },
+  ];
+
+  const [activeScreen, setActiveScreen] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveScreen((prev) => (prev + 1) % heroScreens.length);
+    }, 2800);
+
+    return () => clearInterval(interval);
+  }, [heroScreens.length]);
+
   return (
     <main className="min-h-screen bg-[#f7f4ee] text-[#1f2937]">
-      {/* HEADER */}
       <header className="sticky top-0 z-50 border-b border-black/5 bg-[#f7f4ee]/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <a href="#" className="flex items-center gap-3">
@@ -145,7 +176,6 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
           <div>
@@ -207,14 +237,44 @@ export default function HomePage() {
           </div>
 
           <div className="relative flex items-center justify-center">
-            <div className="relative mx-auto h-[620px] w-[300px] rounded-[2.8rem] border-[10px] border-[#111827] bg-black p-2 shadow-2xl">
-              <div className="absolute left-1/2 top-2 h-5 w-28 -translate-x-1/2 rounded-full bg-[#111827]" />
-              <div className="h-full overflow-hidden rounded-[2.2rem] bg-white">
-                <img
-                  src="/hero-phone.png"
-                  alt="FridgeSmart app preview"
-                  className="h-full w-full object-cover object-top"
-                />
+            <div className="relative mx-auto">
+              <div className="relative h-[620px] w-[300px] rounded-[2.8rem] border-[10px] border-[#111827] bg-black p-2 shadow-2xl">
+                <div className="absolute left-1/2 top-2 z-20 h-5 w-28 -translate-x-1/2 rounded-full bg-[#111827]" />
+
+                <div className="relative h-full overflow-hidden rounded-[2.2rem] bg-white">
+                  {heroScreens.map((screen, index) => (
+                    <img
+                      key={screen.src}
+                      src={screen.src}
+                      alt={screen.alt}
+                      className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-700 ${
+                        index === activeScreen
+                          ? "opacity-100 scale-100"
+                          : "opacity-0 scale-[1.02]"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 flex items-center justify-center gap-2">
+                {heroScreens.map((screen, index) => (
+                  <button
+                    key={screen.label}
+                    type="button"
+                    aria-label={`Show ${screen.label} screen`}
+                    onClick={() => setActiveScreen(index)}
+                    className={`h-2.5 rounded-full transition-all ${
+                      index === activeScreen
+                        ? "w-8 bg-[#111827]"
+                        : "w-2.5 bg-[#cbd5e1] hover:bg-[#94a3b8]"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-3 text-center text-sm font-medium text-[#6b7280]">
+                {heroScreens[activeScreen].label}
               </div>
             </div>
 
@@ -246,7 +306,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TRUST STRIP */}
       <section className="border-y border-black/5 bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 py-6 text-center sm:grid-cols-3 sm:px-6 lg:px-8">
           <div>
@@ -270,7 +329,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
       <section
         id="how-it-works"
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
@@ -308,7 +366,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* REWARDS */}
       <section id="rewards" className="bg-[#fffaf2]">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -401,7 +458,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* AMAZON PICKS */}
       <section
         id="amazon-picks"
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
@@ -447,7 +503,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
       <section id="testimonials" className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
@@ -481,7 +536,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* DOWNLOAD */}
       <section
         id="download"
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
@@ -523,7 +577,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="border-t border-black/5 bg-[#f7f4ee]">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
