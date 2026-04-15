@@ -24,8 +24,6 @@ const APP_STORE_URL =
   "https://apps.apple.com/us/app/fridgesmart-app/id6755790933";
 const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart";
-const AMAZON_URL =
-  "https://www.amazon.com/s?k=kitchen+groceries&tag=fridgesmartap-20";
 const API_ENDPOINT = "/api/chef-lumi-demo";
 
 type Msg = { role: "user" | "assistant"; text: string };
@@ -43,7 +41,8 @@ const heroSlides: HeroSlide[] = [
   {
     src: "/hero-main.png",
     alt: "FridgeSmart main app screen",
-    ingredients: "You already have chicken, broccoli, rice, garlic, and soy sauce.",
+    ingredients:
+      "You already have chicken, broccoli, rice, garlic, and soy sauce.",
     followup:
       "Make a quick stir-fry tonight. Your spinach expires today, so add it now and save the chicken breast for tomorrow’s lunch bowl.",
     freshness: "84% freshness score",
@@ -52,7 +51,8 @@ const heroSlides: HeroSlide[] = [
   {
     src: "/hero-scan.png",
     alt: "FridgeSmart scan screen",
-    ingredients: "I found eggs, spinach, mushrooms, tortillas, and cheese in your fridge.",
+    ingredients:
+      "I found eggs, spinach, mushrooms, tortillas, and cheese in your fridge.",
     followup:
       "You can turn that into a fast breakfast wrap and use your spinach before it gets forgotten.",
     freshness: "Scan complete",
@@ -61,7 +61,8 @@ const heroSlides: HeroSlide[] = [
   {
     src: "/hero-results.png",
     alt: "FridgeSmart results screen",
-    ingredients: "These items need attention first: spinach, milk, and chicken breast.",
+    ingredients:
+      "These items need attention first: spinach, milk, and chicken breast.",
     followup:
       "Use those before buying more. Chef Lumi can build dinner from what should be used first.",
     freshness: "Items prioritized",
@@ -70,7 +71,8 @@ const heroSlides: HeroSlide[] = [
   {
     src: "/hero-shopping.png",
     alt: "FridgeSmart shopping screen",
-    ingredients: "You’re low on eggs, milk, and spinach, but you already have enough for tonight.",
+    ingredients:
+      "You’re low on eggs, milk, and spinach, but you already have enough for tonight.",
     followup:
       "FridgeSmart helps you fill only what is actually needed instead of shopping blindly.",
     freshness: "Smart shopping ready",
@@ -272,7 +274,7 @@ function ChefChat() {
     setLoading(true);
 
     try {
-      const res = await fetch(API_ENDPOINT, {
+      const res = await fetch("/api/chef-lumi-demo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -663,7 +665,9 @@ export default function Page() {
                               App preview
                             </span>
                             <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
-                              {heroSlides[activeHero].alt.replace("FridgeSmart ", "").replace(" screen", "")}
+                              {heroSlides[activeHero].alt
+                                .replace("FridgeSmart ", "")
+                                .replace(" screen", "")}
                             </span>
                           </div>
 
@@ -745,7 +749,7 @@ export default function Page() {
                           </div>
 
                           <div className="rounded-2xl bg-emerald-50 p-4 text-sm leading-7 text-slate-700">
-                            <p className="font-medium text-slate-900 min-h-[84px]">
+                            <p className="min-h-[84px] font-medium text-slate-900">
                               “{typedIngredients}
                               <span className="animate-pulse">|</span>”
                             </p>
@@ -988,36 +992,36 @@ export default function Page() {
               </div>
             </div>
 
-           <div className="mt-10 grid gap-6 lg:grid-cols-2">
-  {testimonials.map((item) => (
-    <div
-      key={item.name}
-      className="rounded-3xl border border-emerald-100 bg-[#f9fdf9] p-6 shadow-sm"
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="font-semibold text-slate-950">{item.title}</div>
-          <div className="text-xs text-slate-500">
-            {item.date} · {item.name}
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              {testimonials.map((item) => (
+                <div
+                  key={item.name}
+                  className="rounded-3xl border border-emerald-100 bg-[#f9fdf9] p-6 shadow-sm"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-semibold text-slate-950">
+                        {item.title}
+                      </div>
+                      <div className="text-xs text-slate-500">
+                        {item.date} · {item.name}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 flex items-center gap-1 text-amber-400">
+                    {[...Array(item.rating)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-current" />
+                    ))}
+                  </div>
+
+                  <p className="mt-4 text-sm leading-7 text-slate-700">
+                    {item.quote}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
-
-      {/* Stars */}
-      <div className="mt-3 flex items-center gap-1 text-amber-400">
-        {[...Array(item.rating)].map((_, i) => (
-          <Star key={i} className="h-4 w-4 fill-current" />
-        ))}
-      </div>
-
-      {/* Review */}
-      <p className="mt-4 text-sm leading-7 text-slate-700">
-        {item.quote}
-      </p>
-    </div>
-  ))}
-</div>
         </section>
 
         <section className="mx-auto my-16 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
