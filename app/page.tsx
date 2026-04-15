@@ -274,7 +274,7 @@ function ChefChat() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/chef-lumi-demo", {
+      const res = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -544,12 +544,6 @@ export default function Page() {
 
                 <div className="flex items-center gap-3">
                   <a
-                    href="#amazon-picks"
-                    className="hidden rounded-full px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-white md:inline-flex"
-                  >
-                    Amazon Picks
-                  </a>
-                  <a
                     href="#download"
                     className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
                   >
@@ -563,7 +557,7 @@ export default function Page() {
               <div>
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/80 px-4 py-2 text-sm font-medium text-emerald-800 shadow-sm backdrop-blur">
                   <Sparkles className="h-4 w-4" />
-                  Your fridge isn’t empty — you just don’t know what is in it
+                  Your fridge isn’t empty — you just don’t know what’s in it
                   yet.
                 </div>
 
@@ -750,8 +744,8 @@ export default function Page() {
 
                           <div className="rounded-2xl bg-emerald-50 p-4 text-sm leading-7 text-slate-700">
                             <p className="min-h-[84px] font-medium text-slate-900">
-                              “{typedIngredients}
-                              <span className="animate-pulse">|</span>”
+                              “{typedIngredients}”
+                              <span className="animate-pulse">|</span>
                             </p>
                             <p className="mt-2">
                               {heroSlides[activeHero].followup}
@@ -1043,7 +1037,7 @@ export default function Page() {
 
                 <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
                   You’re simply shopping as you normally would. There’s nothing extra to buy—just
-                  use FridgeSmart to discover and plan your purchases and get rewarded for it.
+                  use FridgeSmart to plan your shopping and get rewarded for it.
                 </p>
 
                 <p className="mt-3 text-sm font-medium text-emerald-700">
@@ -1151,7 +1145,7 @@ export default function Page() {
 
               <p>
                 Qualifying orders must represent normal consumer purchases. Small, test,
-                repeated minimal, canceled, refunded, duplicate, or suspicious transactions
+                repeated, minimal, canceled, refunded, duplicate, or suspicious transactions
                 may not be eligible.
               </p>
 
@@ -1237,7 +1231,7 @@ export default function Page() {
                 Ready to start?
               </p>
               <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-                Scan your fridge. Catch what is expiring. Decide dinner faster.
+                Scan your fridge. Catch what is expiring. Decide on dinner faster.
               </h2>
               <p className="mt-4 text-lg leading-8 text-emerald-50/95">
                 Download FridgeSmart and turn the food you already have into
