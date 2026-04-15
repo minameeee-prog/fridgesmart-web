@@ -30,6 +30,54 @@ const API_ENDPOINT = "/api/chef-lumi-demo";
 
 type Msg = { role: "user" | "assistant"; text: string };
 
+type HeroSlide = {
+  src: string;
+  alt: string;
+  ingredients: string;
+  followup: string;
+  freshness: string;
+  savings: string;
+};
+
+const heroSlides: HeroSlide[] = [
+  {
+    src: "/hero-main.png",
+    alt: "FridgeSmart main app screen",
+    ingredients: "You already have chicken, broccoli, rice, garlic, and soy sauce.",
+    followup:
+      "Make a quick stir-fry tonight. Your spinach expires today, so add it now and save the chicken breast for tomorrow’s lunch bowl.",
+    freshness: "84% freshness score",
+    savings: "$84",
+  },
+  {
+    src: "/hero-scan.png",
+    alt: "FridgeSmart scan screen",
+    ingredients: "I found eggs, spinach, mushrooms, tortillas, and cheese in your fridge.",
+    followup:
+      "You can turn that into a fast breakfast wrap and use your spinach before it gets forgotten.",
+    freshness: "Scan complete",
+    savings: "$52",
+  },
+  {
+    src: "/hero-results.png",
+    alt: "FridgeSmart results screen",
+    ingredients: "These items need attention first: spinach, milk, and chicken breast.",
+    followup:
+      "Use those before buying more. Chef Lumi can build dinner from what should be used first.",
+    freshness: "Items prioritized",
+    savings: "$67",
+  },
+  {
+    src: "/hero-shopping.png",
+    alt: "FridgeSmart shopping screen",
+    ingredients: "You’re low on eggs, milk, and spinach, but you already have enough for tonight.",
+    followup:
+      "FridgeSmart helps you fill only what is actually needed instead of shopping blindly.",
+    freshness: "Smart shopping ready",
+    savings: "$73",
+  },
+];
+
 const howItWorks = [
   {
     icon: ScanLine,
@@ -392,6 +440,33 @@ function ChefChat() {
 }
 
 export default function Page() {
+  const [activeHero, setActiveHero] = useState(0);
+  const [typedIngredients, setTypedIngredients] = useState("");
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveHero((prev) => (prev + 1) % heroSlides.length);
+    }, 3500);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const fullText = heroSlides[activeHero].ingredients;
+    setTypedIngredients("");
+    let index = 0;
+
+    const typer = window.setInterval(() => {
+      index += 1;
+      setTypedIngredients(fullText.slice(0, index));
+      if (index >= fullText.length) {
+        window.clearInterval(typer);
+      }
+    }, 22);
+
+    return () => window.clearInterval(typer);
+  }, [activeHero]);
+
   return (
     <>
       <main className="min-h-screen bg-[#f6faf6] text-slate-900">
@@ -532,7 +607,7 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="relative">
                 <div className="absolute -left-8 top-8 hidden h-28 w-28 rounded-full bg-emerald-300/30 blur-3xl lg:block" />
                 <div className="absolute -right-10 bottom-0 hidden h-40 w-40 rounded-full bg-lime-300/30 blur-3xl lg:block" />
@@ -559,39 +634,61 @@ export default function Page() {
                         </div>
                       </div>
                       <div className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
-                        84% freshness score
+                        {heroSlides[activeHero].freshness}
                       </div>
                     </div>
 
-                    <div className="grid gap-4 p-4 sm:grid-cols-[0.9fr_1.1fr]">
+                    <div className="grid gap-4 p-4 sm:grid-cols-[0.92fr_1.08fr]">
                       <div className="space-y-4">
                         <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-emerald-100">
                           <div className="mb-3 flex items-center justify-between">
                             <span className="text-sm font-semibold">
-                              Expiring soon
+                              App preview
                             </span>
-                            <span className="rounded-full bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-600">
-                              Next 48h
+                            <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+                              {heroSlides[activeHero].alt.replace("FridgeSmart ", "").replace(" screen", "")}
                             </span>
                           </div>
-                          <div className="space-y-2 text-sm">
-                            {[
-                              ["Spinach", "Today"],
-                              ["Milk", "Tomorrow"],
-                              ["Chicken breast", "2 days"],
-                            ].map(([item, time]) => (
-                              <div
-                                key={item}
-                                className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2"
-                              >
-                                <span className="font-medium text-slate-700">
-                                  {item}
-                                </span>
-                                <span className="text-xs font-semibold text-rose-600">
-                                  {time}
-                                </span>
+
+                          <div className="mx-auto w-[240px]">
+                            <div className="relative h-[490px] w-[240px] rounded-[2.5rem] border-[8px] border-slate-950 bg-black p-2 shadow-xl">
+                              <div className="absolute left-1/2 top-2 h-5 w-24 -translate-x-1/2 rounded-full bg-slate-950" />
+                              <div className="relative h-full overflow-hidden rounded-[2rem] bg-white">
+                                {heroSlides.map((slide, index) => (
+                                  <div
+                                    key={slide.src}
+                                    className={`absolute inset-0 transition-all duration-700 ${
+                                      index === activeHero
+                                        ? "opacity-100 scale-100"
+                                        : "opacity-0 scale-[1.02]"
+                                    }`}
+                                  >
+                                    <Image
+                                      src={slide.src}
+                                      alt={slide.alt}
+                                      fill
+                                      className="object-cover object-top"
+                                    />
+                                  </div>
+                                ))}
                               </div>
-                            ))}
+                            </div>
+
+                            <div className="mt-4 flex items-center justify-center gap-2">
+                              {heroSlides.map((slide, index) => (
+                                <button
+                                  key={slide.src}
+                                  type="button"
+                                  onClick={() => setActiveHero(index)}
+                                  aria-label={`Show ${slide.alt}`}
+                                  className={`h-2.5 rounded-full transition-all ${
+                                    index === activeHero
+                                      ? "w-8 bg-slate-950"
+                                      : "w-2.5 bg-slate-300 hover:bg-slate-400"
+                                  }`}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
 
@@ -599,7 +696,9 @@ export default function Page() {
                           <div className="text-xs uppercase tracking-[0.22em] text-emerald-300">
                             Estimated saved
                           </div>
-                          <div className="mt-2 text-3xl font-black">$84</div>
+                          <div className="mt-2 text-3xl font-black">
+                            {heroSlides[activeHero].savings}
+                          </div>
                           <p className="mt-2 text-sm leading-6 text-slate-300">
                             This month from using what you already had before
                             shopping again.
@@ -629,14 +728,12 @@ export default function Page() {
                           </div>
 
                           <div className="rounded-2xl bg-emerald-50 p-4 text-sm leading-7 text-slate-700">
-                            <p className="font-medium text-slate-900">
-                              “You already have chicken, broccoli, rice, garlic,
-                              and soy sauce.”
+                            <p className="font-medium text-slate-900 min-h-[84px]">
+                              “{typedIngredients}
+                              <span className="animate-pulse">|</span>”
                             </p>
                             <p className="mt-2">
-                              Make a quick stir-fry tonight. Your spinach
-                              expires today, so add it now and save the chicken
-                              breast for tomorrow’s lunch bowl.
+                              {heroSlides[activeHero].followup}
                             </p>
                           </div>
 
@@ -898,150 +995,150 @@ export default function Page() {
             </div>
           </div>
         </section>
-{/* ================== REWARDS SECTION ================== */}
-<section className="mx-auto my-16 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-  <div className="overflow-hidden rounded-[28px] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-yellow-50 shadow-sm">
-    <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:p-10">
-      <div>
-        <div className="inline-flex items-center rounded-full border border-emerald-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
-          FridgeSmart Rewards
-        </div>
 
-        <h2 className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          Earn up to a $25 Amazon Gift Card
-        </h2>
+        <section className="mx-auto my-16 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-[28px] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-yellow-50 shadow-sm">
+            <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:p-10">
+              <div>
+                <div className="inline-flex items-center rounded-full border border-emerald-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+                  FridgeSmart Rewards
+                </div>
 
-        <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-          Complete shopping orders using FridgeSmart recommendations—any items,
-          not just groceries—and send proof of purchase to qualify for rewards.
-        </p>
+                <h2 className="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+                  Earn up to a $25 Amazon Gift Card
+                </h2>
 
-        <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-          You’re simply shopping as you normally would. There’s nothing extra to buy—just
-          use FridgeSmart to discover and plan your purchases and get rewarded for it.
-        </p>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+                  Complete shopping orders using FridgeSmart recommendations—any items,
+                  not just groceries—and send proof of purchase to qualify for rewards.
+                </p>
 
-        <p className="mt-3 text-sm font-medium text-emerald-700">
-          No extra cost. Just smarter shopping.
-        </p>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
+                  You’re simply shopping as you normally would. There’s nothing extra to buy—just
+                  use FridgeSmart to discover and plan your purchases and get rewarded for it.
+                </p>
 
-        <p className="mt-2 text-sm text-slate-500">
-          Qualifying orders should reflect normal purchases and not small or test transactions.
-        </p>
+                <p className="mt-3 text-sm font-medium text-emerald-700">
+                  No extra cost. Just smarter shopping.
+                </p>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-3">
-          <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
-            <p className="text-sm font-semibold text-slate-900">1. Shop normally</p>
-            <p className="mt-1 text-sm leading-6 text-slate-600">
-              Use FridgeSmart recommendations for items you already plan to buy.
-            </p>
-          </div>
+                <p className="mt-2 text-sm text-slate-500">
+                  Qualifying orders should reflect normal purchases and not small or test transactions.
+                </p>
 
-          <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
-            <p className="text-sm font-semibold text-slate-900">2. Save proof</p>
-            <p className="mt-1 text-sm leading-6 text-slate-600">
-              Keep your order confirmations, receipts, or purchase screenshots.
-            </p>
-          </div>
+                <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
+                    <p className="text-sm font-semibold text-slate-900">1. Shop normally</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                      Use FridgeSmart recommendations for items you already plan to buy.
+                    </p>
+                  </div>
 
-          <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
-            <p className="text-sm font-semibold text-slate-900">3. Claim rewards</p>
-            <p className="mt-1 text-sm leading-6 text-slate-600">
-              Send your proof after qualifying orders and we’ll review your submission.
-            </p>
-          </div>
-        </div>
+                  <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
+                    <p className="text-sm font-semibold text-slate-900">2. Save proof</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                      Keep your order confirmations, receipts, or purchase screenshots.
+                    </p>
+                  </div>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a
-            href="mailto:support@fridgesmartapp.com?subject=FridgeSmart%20Rewards%20Claim&body=Hi%20FridgeSmart%20team%2C%0A%0AI%E2%80%99d%20like%20to%20submit%20my%20reward%20claim.%0A%0AFridgeSmart%20account%20email%3A%20%0ANumber%20of%20orders%20completed%3A%20%0AOrder%20dates%3A%20%0A%0AI%E2%80%99ve%20attached%20my%20proof%20of%20purchase.%0A"
-            className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
-          >
-            Claim by Email
-          </a>
+                  <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
+                    <p className="text-sm font-semibold text-slate-900">3. Claim rewards</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                      Send your proof after qualifying orders and we’ll review your submission.
+                    </p>
+                  </div>
+                </div>
 
-          <a
-            href="#reward-terms"
-            className="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-          >
-            View Terms
-          </a>
-        </div>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href="mailto:support@fridgesmartapp.com?subject=FridgeSmart%20Rewards%20Claim&body=Hi%20FridgeSmart%20team%2C%0A%0AI%E2%80%99d%20like%20to%20submit%20my%20reward%20claim.%0A%0AFridgeSmart%20account%20email%3A%20%0ANumber%20of%20orders%20completed%3A%20%0AOrder%20dates%3A%20%0A%0AI%E2%80%99ve%20attached%20my%20proof%20of%20purchase.%0A"
+                    className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                  >
+                    Claim by Email
+                  </a>
 
-        <p className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          Rewards are subject to review. Proof of purchase required. Limit one reward per tier progression. Terms apply.
-        </p>
-      </div>
+                  <a
+                    href="#reward-terms"
+                    className="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  >
+                    View Terms
+                  </a>
+                </div>
 
-      <div className="flex h-full items-center">
-        <div className="w-full rounded-3xl bg-slate-900 p-6 text-white shadow-lg">
-          <p className="text-sm font-medium text-emerald-300">Reward Levels</p>
+                <p className="mt-6 text-sm text-slate-500">
+                  Rewards are subject to review. Proof of purchase required. Limit one reward per tier progression. Terms apply.
+                </p>
+              </div>
 
-          <div className="mt-5 space-y-4">
-            <div className="rounded-2xl bg-white/10 p-4">
-              <p className="text-sm font-semibold">Starter</p>
-              <p className="mt-1 text-2xl font-bold">3 Orders</p>
-              <p className="mt-1 text-sm text-white/75">$5 Reward</p>
+              <div className="flex h-full items-center">
+                <div className="w-full rounded-3xl bg-slate-900 p-6 text-white shadow-lg">
+                  <p className="text-sm font-medium text-emerald-300">Reward Levels</p>
+
+                  <div className="mt-5 space-y-4">
+                    <div className="rounded-2xl bg-white/10 p-4">
+                      <p className="text-sm font-semibold">Starter</p>
+                      <p className="mt-1 text-2xl font-bold">3 Orders</p>
+                      <p className="mt-1 text-sm text-white/75">$5 Reward</p>
+                    </div>
+
+                    <div className="rounded-2xl bg-white/10 p-4">
+                      <p className="text-sm font-semibold">Smart Shopper</p>
+                      <p className="mt-1 text-2xl font-bold">5 Orders</p>
+                      <p className="mt-1 text-sm text-white/75">$10 Reward</p>
+                    </div>
+
+                    <div className="rounded-2xl bg-white/10 p-4">
+                      <p className="text-sm font-semibold">Power User</p>
+                      <p className="mt-1 text-2xl font-bold">10 Orders</p>
+                      <p className="mt-1 text-sm text-white/75">$25 Reward</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+        </section>
 
-            <div className="rounded-2xl bg-white/10 p-4">
-              <p className="text-sm font-semibold">Smart Shopper</p>
-              <p className="mt-1 text-2xl font-bold">5 Orders</p>
-              <p className="mt-1 text-sm text-white/75">$10 Reward</p>
-            </div>
+        <section
+          id="reward-terms"
+          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+        >
+          <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <h3 className="text-2xl font-bold text-slate-900">Reward Terms</h3>
 
-            <div className="rounded-2xl bg-white/10 p-4">
-              <p className="text-sm font-semibold">Power User</p>
-              <p className="mt-1 text-2xl font-bold">10 Orders</p>
-              <p className="mt-1 text-sm text-white/75">$25 Reward</p>
+            <div className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+              <p>
+                Users may qualify for rewards by completing eligible shopping orders using
+                FridgeSmart recommendations and submitting valid proof of purchase for review.
+              </p>
+
+              <p>
+                Eligible purchases may include any qualifying items and are not limited to groceries.
+              </p>
+
+              <p>
+                Proof of purchase may include order confirmations, receipts, screenshots,
+                or similar documentation that clearly shows the order details.
+              </p>
+
+              <p>
+                Qualifying orders must represent normal consumer purchases. Small, test,
+                repeated minimal, canceled, refunded, duplicate, or suspicious transactions
+                may not be eligible.
+              </p>
+
+              <p>
+                Limit one reward per tier progression per user. FridgeSmart reserves the right
+                to review and approve all submissions.
+              </p>
+
+              <p>
+                FridgeSmart may modify or end this offer at any time.
+              </p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        </section>
 
-{/* ================== TERMS ================== */}
-<section
-  id="reward-terms"
-  className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
->
-  <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-    <h3 className="text-2xl font-bold text-slate-900">Reward Terms</h3>
-
-    <div className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
-      <p>
-        Users may qualify for rewards by completing eligible shopping orders using
-        FridgeSmart recommendations and submitting valid proof of purchase for review.
-      </p>
-
-      <p>
-        Eligible purchases may include any qualifying items and are not limited to groceries.
-      </p>
-
-      <p>
-        Proof of purchase may include order confirmations, receipts, screenshots,
-        or similar documentation that clearly shows the order details.
-      </p>
-
-      <p>
-        Qualifying orders must represent normal consumer purchases. Small, test,
-        repeated minimal, canceled, refunded, duplicate, or suspicious transactions
-        may not be eligible.
-      </p>
-
-      <p>
-        Limit one reward per tier progression per user. FridgeSmart reserves the right
-        to review and approve all submissions.
-      </p>
-
-      <p>
-        FridgeSmart may modify or end this offer at any time.
-      </p>
-    </div>
-  </div>
-</section>
         <section
           id="amazon-picks"
           className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
