@@ -127,19 +127,36 @@ const features = [
 
 const testimonials = [
   {
-    name: "Early User",
+    name: "Patel Dav",
+    title: "Highly recommended app for Smart Grocery Management",
+    date: "Feb 10",
+    rating: 5,
     quote:
-      "The expiration reminders alone made me realize how much food I was forgetting.",
+      "FridgeSmart has completely changed the way I manage my kitchen and groceries. The app is incredibly user-friendly and makes it so easy to track what’s in my fridge, monitor expiration dates, and reduce food waste. I love the reminder feature—it helps me use items before they expire, which saves both money and time. The interface is clean and intuitive, so adding and organizing items takes just a few seconds. The smart suggestions and notifications are especially helpful when planning meals or creating shopping lists. Overall, FridgeSmart is a must-have app for anyone who wants to stay organized, save money, and make smarter food decisions.",
   },
   {
-    name: "Busy Parent",
+    name: "Verenaa2",
+    title: "Game changer!",
+    date: "Feb 26",
+    rating: 5,
     quote:
-      "Chef Lumi makes dinner easier because I can use what I already have instead of ordering out.",
+      "I’ve really been enjoying using FridgeSmart! It makes it so easy to keep track of what’s in my fridge and come up with meals using the ingredients I already have. I love that it helps reduce food waste and reminds me about expiration dates. The app is easy to use, organized, and makes meal planning much less stressful. I definitely recommend it if you’re trying to stay more organized with your groceries and cooking!",
   },
   {
-    name: "Meal Prep User",
+    name: "EB Mike",
+    title: "Phenomenal",
+    date: "Apr 3",
+    rating: 5,
     quote:
-      "The scan is what sold me. It makes my fridge feel organized in seconds.",
+      "Such a great app. I’ve always had a problem with inventory, and this makes it so much easier. I can keep track of everything in one place, and it even captures expiration dates so I know what needs to be used first. The recipe options are awesome and very varied. And the best part—it’s free. Highly recommend.",
+  },
+  {
+    name: "Dandouna987",
+    title: "Saves me money",
+    date: "Mar 1",
+    rating: 5,
+    quote:
+      "Finally, an app that saves me money! The AI scanning is incredibly accurate—it identified my random produce immediately. The Chef Lumi recipes are a lifesaver for using up 'forgotten' ingredients, and the expiration alerts have stopped me from wasting a fortune on groceries. Super clean interface and easy to use. 10/10 recommend.",
   },
 ];
 
@@ -971,29 +988,36 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {testimonials.map((item) => (
-                <div
-                  key={item.name}
-                  className="rounded-3xl border border-emerald-100 bg-[#f9fdf9] p-6 shadow-sm"
-                >
-                  <div className="mb-4 flex items-center gap-1 text-amber-400">
-                    <Star className="h-4 w-4 fill-current" />
-                    <Star className="h-4 w-4 fill-current" />
-                    <Star className="h-4 w-4 fill-current" />
-                    <Star className="h-4 w-4 fill-current" />
-                    <Star className="h-4 w-4 fill-current" />
-                  </div>
-                  <p className="text-base leading-8 text-slate-700">
-                    “{item.quote}”
-                  </p>
-                  <div className="mt-5 text-sm font-semibold text-slate-950">
-                    {item.name}
-                  </div>
-                </div>
-              ))}
-            </div>
+           <div className="mt-10 grid gap-6 lg:grid-cols-2">
+  {testimonials.map((item) => (
+    <div
+      key={item.name}
+      className="rounded-3xl border border-emerald-100 bg-[#f9fdf9] p-6 shadow-sm"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="font-semibold text-slate-950">{item.title}</div>
+          <div className="text-xs text-slate-500">
+            {item.date} · {item.name}
           </div>
+        </div>
+      </div>
+
+      {/* Stars */}
+      <div className="mt-3 flex items-center gap-1 text-amber-400">
+        {[...Array(item.rating)].map((_, i) => (
+          <Star key={i} className="h-4 w-4 fill-current" />
+        ))}
+      </div>
+
+      {/* Review */}
+      <p className="mt-4 text-sm leading-7 text-slate-700">
+        {item.quote}
+      </p>
+    </div>
+  ))}
+</div>
         </section>
 
         <section className="mx-auto my-16 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
