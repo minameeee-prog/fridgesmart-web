@@ -20,6 +20,38 @@ import {
   X,
 } from "lucide-react";
 
+function AnimatedCounter({
+  end,
+  duration = 1500,
+}: {
+  end: number;
+  duration?: number;
+}) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start: number | null = null;
+    let frame = 0;
+
+    const step = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * end));
+
+      if (progress < 1) {
+        frame = window.requestAnimationFrame(step);
+      }
+    };
+
+    frame = window.requestAnimationFrame(step);
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [end, duration]);
+
+  return <span>{count}+</span>;
+}
+
 const APP_STORE_URL =
   "https://apps.apple.com/us/app/fridgesmart-app/id6755790933";
 const PLAY_STORE_URL =
@@ -588,7 +620,7 @@ export default function Page() {
                   </div>
                   <div className="rounded-2xl border border-emerald-100 bg-white/90 p-4 shadow-sm">
                     <div className="text-2xl font-black tracking-tight text-slate-950">
-                      200+
+                      <AnimatedCounter end={200} />
                     </div>
                     <div className="mt-1 text-sm text-slate-600">
                       Early users already organizing meals and reducing waste
