@@ -620,7 +620,7 @@ export default function Page() {
                   </div>
                   <div className="rounded-2xl border border-emerald-100 bg-white/90 p-4 shadow-sm">
                     <div className="text-2xl font-black tracking-tight text-slate-950">
-                      <AnimatedCounter end={200} />
+                      <AnimatedCounter end={250} />
                     </div>
                     <div className="mt-1 text-sm text-slate-600">
                       Early users already organizing meals and reducing waste
