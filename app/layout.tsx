@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     "expiration tracking app",
     "reduce food waste",
     "AI recipe app",
-    "meal planning app"
-    "Scan my Fridge app"
+    "meal planning app",
+    "Scan my Fridge app",
     "Pantry Scan app",
   ],
   alternates: {
