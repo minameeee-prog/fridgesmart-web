@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -57,6 +58,11 @@ const APP_STORE_URL =
 const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart";
 const API_ENDPOINT = "/api/chef-lumi-demo";
+const SITE_URL = "https://fridgesmartapp.com";
+const PAGE_TITLE =
+  "FridgeSmart App — Track Your Fridge, Reduce Food Waste & Get AI Recipes";
+const PAGE_DESCRIPTION =
+  "FridgeSmart (also searched as Fridge Smart or FridgeSmart App) is an AI-powered app that helps you scan your fridge, track expiration dates, get alerts before food goes bad, and create recipes from ingredients you already have.";
 
 type Msg = { role: "user" | "assistant"; text: string };
 
@@ -495,6 +501,146 @@ export default function Page() {
   const [typedIngredients, setTypedIngredients] = useState("");
 
   useEffect(() => {
+    document.title = PAGE_TITLE;
+
+    const ensureMeta = (
+      selector: string,
+      create: () => HTMLMetaElement,
+      content: string
+    ) => {
+      let element = document.querySelector(selector) as HTMLMetaElement | null;
+      if (!element) {
+        element = create();
+        document.head.appendChild(element);
+      }
+      element.setAttribute("content", content);
+    };
+
+    const ensureLink = (
+      selector: string,
+      create: () => HTMLLinkElement,
+      href: string
+    ) => {
+      let element = document.querySelector(selector) as HTMLLinkElement | null;
+      if (!element) {
+        element = create();
+        document.head.appendChild(element);
+      }
+      element.setAttribute("href", href);
+    };
+
+    ensureMeta(
+      'meta[name="description"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.name = "description";
+        return meta;
+      },
+      PAGE_DESCRIPTION
+    );
+
+    ensureMeta(
+      'meta[name="keywords"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.name = "keywords";
+        return meta;
+      },
+      "FridgeSmart, Fridge Smart, FridgeSmart App, food tracking app, reduce food waste, fridge inventory app, AI recipe app, expiration tracking app, grocery organization app"
+    );
+
+    ensureMeta(
+      'meta[property="og:title"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.setAttribute("property", "og:title");
+        return meta;
+      },
+      PAGE_TITLE
+    );
+
+    ensureMeta(
+      'meta[property="og:description"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.setAttribute("property", "og:description");
+        return meta;
+      },
+      PAGE_DESCRIPTION
+    );
+
+    ensureMeta(
+      'meta[property="og:type"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.setAttribute("property", "og:type");
+        return meta;
+      },
+      "website"
+    );
+
+    ensureMeta(
+      'meta[property="og:url"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.setAttribute("property", "og:url");
+        return meta;
+      },
+      SITE_URL
+    );
+
+    ensureMeta(
+      'meta[property="og:site_name"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.setAttribute("property", "og:site_name");
+        return meta;
+      },
+      "FridgeSmart"
+    );
+
+    ensureMeta(
+      'meta[name="twitter:card"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.name = "twitter:card";
+        return meta;
+      },
+      "summary_large_image"
+    );
+
+    ensureMeta(
+      'meta[name="twitter:title"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.name = "twitter:title";
+        return meta;
+      },
+      PAGE_TITLE
+    );
+
+    ensureMeta(
+      'meta[name="twitter:description"]',
+      () => {
+        const meta = document.createElement("meta");
+        meta.name = "twitter:description";
+        return meta;
+      },
+      PAGE_DESCRIPTION
+    );
+
+    ensureLink(
+      'link[rel="canonical"]',
+      () => {
+        const link = document.createElement("link");
+        link.rel = "canonical";
+        return link;
+      },
+      SITE_URL
+    );
+  }, []);
+
+  useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveHero((prev) => (prev + 1) % heroSlides.length);
     }, 3500);
@@ -520,6 +666,35 @@ export default function Page() {
 
   return (
     <>
+      <Script
+        id="fridgesmart-mobileapp-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MobileApplication",
+            name: "FridgeSmart",
+            alternateName: ["Fridge Smart", "FridgeSmart App"],
+            url: SITE_URL,
+            applicationCategory: "FoodAndDrinkApplication",
+            operatingSystem: "iOS, Android",
+            description: PAGE_DESCRIPTION,
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            downloadUrl: [APP_STORE_URL, PLAY_STORE_URL],
+            publisher: {
+              "@type": "Organization",
+              name: "FridgeSmart",
+              url: SITE_URL,
+            },
+          }),
+        }}
+      />
+
       <main className="min-h-screen bg-[#f6faf6] text-slate-900">
         <section className="relative overflow-hidden border-b border-emerald-100 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.16),_transparent_35%),linear-gradient(180deg,#f7fcf8_0%,#eef8f0_100%)]">
           <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-emerald-100/60 to-transparent" />
@@ -571,6 +746,12 @@ export default function Page() {
                     className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
                   >
                     Amazon Picks
+                  </a>
+                  <a
+                    href="#faq"
+                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
+                  >
+                    FAQ
                   </a>
                 </nav>
 
@@ -933,6 +1114,31 @@ export default function Page() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="rounded-[28px] border border-emerald-100 bg-[#fbfefb] p-8 shadow-sm sm:p-10">
+            <div className="max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+                What is FridgeSmart?
+              </p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+                FridgeSmart helps people waste less food and decide faster.
+              </h2>
+              <p className="mt-4 text-lg leading-8 text-slate-600">
+                FridgeSmart, also searched as <strong>Fridge Smart</strong> or{" "}
+                <strong>FridgeSmart App</strong>, is an AI-powered mobile app
+                for iPhone and Android that helps you scan your fridge, track
+                expiration dates, get food reminders, and create recipe ideas
+                from ingredients you already have at home.
+              </p>
+              <p className="mt-4 text-base leading-7 text-slate-600">
+                Instead of forgetting food in the back of the fridge or buying
+                duplicates you do not need, FridgeSmart gives you a clear view
+                of what is already in your kitchen and what should be used first.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="rounded-[32px] border border-emerald-100 bg-slate-950 p-8 text-white shadow-2xl shadow-slate-200 sm:p-10 lg:p-12">
             <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
               <div>
@@ -1256,6 +1462,54 @@ export default function Page() {
           </div>
         </section>
 
+        <section
+          id="faq"
+          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+        >
+          <div className="rounded-[28px] border border-emerald-100 bg-white p-6 shadow-sm sm:p-8">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+              FAQ
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+              Common questions about FridgeSmart
+            </h2>
+
+            <div className="mt-8 grid gap-4">
+              <div className="rounded-2xl bg-[#f6faf6] p-5">
+                <h3 className="text-lg font-bold text-slate-950">
+                  Is FridgeSmart the same as Fridge Smart?
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  Yes. FridgeSmart is also sometimes searched as Fridge Smart
+                  or FridgeSmart App. It is the same food tracking and recipe
+                  assistant app.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-[#f6faf6] p-5">
+                <h3 className="text-lg font-bold text-slate-950">
+                  What does FridgeSmart do?
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  FridgeSmart helps you scan your fridge, track expiration
+                  dates, get reminders before food expires, and create meal
+                  ideas from ingredients you already have.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-[#f6faf6] p-5">
+                <h3 className="text-lg font-bold text-slate-950">
+                  Is FridgeSmart available on iPhone and Android?
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  Yes. FridgeSmart is available on the App Store and on Google
+                  Play.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <div className="rounded-[32px] border border-emerald-100 bg-gradient-to-br from-emerald-600 to-emerald-700 p-8 text-white shadow-xl sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
             <div className="max-w-2xl">
@@ -1308,12 +1562,23 @@ export default function Page() {
               <a href="#amazon-picks" className="hover:text-slate-950">
                 Amazon Picks
               </a>
+              <a href="#faq" className="hover:text-slate-950">
+                FAQ
+              </a>
               <Link
                 href="mailto:support@fridgesmartapp.com"
                 className="hover:text-slate-950"
               >
                 support@fridgesmartapp.com
               </Link>
+            </div>
+          </div>
+
+          <div className="border-t border-emerald-100">
+            <div className="mx-auto max-w-7xl px-4 py-4 text-xs leading-6 text-slate-500 sm:px-6 lg:px-8">
+              FridgeSmart, also searched as Fridge Smart or FridgeSmart App, is
+              an AI-powered fridge tracking and food waste reduction app for
+              iPhone and Android.
             </div>
           </div>
         </footer>
