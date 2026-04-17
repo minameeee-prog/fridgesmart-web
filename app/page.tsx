@@ -736,29 +736,47 @@ export default function Page() {
                             </span>
                           </div>
 
-                          <div className="mx-auto w-[240px]">
-                            <div className="relative h-[490px] w-[240px] rounded-[2.5rem] border-[8px] border-slate-950 bg-black p-2 shadow-xl">
-                              <div className="absolute left-1/2 top-2 h-5 w-24 -translate-x-1/2 rounded-full bg-slate-950" />
-                              <div className="relative h-full overflow-hidden rounded-[2rem] bg-white">
-                                {heroSlides.map((slide, index) => (
-                                  <div
-                                    key={slide.src}
-                                    className={`absolute inset-0 transition-all duration-700 ${
-                                      index === activeHero
-                                        ? "opacity-100 scale-100"
-                                        : "opacity-0 scale-[1.02]"
-                                    }`}
-                                  >
-                                    <Image
-                                      src={slide.src}
-                                      alt={slide.alt}
-                                      fill
-                                      className="object-cover object-top"
-                                    />
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
+                          <div className="mx-auto w-[250px]">
+  <div className="relative h-[510px] w-[250px] rounded-[3rem] bg-[#0b1020] p-[5px] shadow-[0_20px_45px_rgba(0,0,0,0.28)]">
+    <div className="absolute left-1/2 top-[10px] z-20 h-[26px] w-[118px] -translate-x-1/2 rounded-full bg-black" />
+    <div className="absolute right-[22px] top-[18px] z-20 h-[10px] w-[10px] rounded-full border border-white/20 bg-[#1f2937]" />
+    <div className="relative h-full overflow-hidden rounded-[2.65rem] bg-black">
+      {heroSlides.map((slide, index) => (
+        <div
+          key={slide.src}
+          className={`absolute inset-0 transition-all duration-700 ${
+            index === activeHero
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-[1.02]"
+          }`}
+        >
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            fill
+            className="object-cover object-top"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div className="mt-4 flex items-center justify-center gap-2">
+    {heroSlides.map((slide, index) => (
+      <button
+        key={slide.src}
+        type="button"
+        onClick={() => setActiveHero(index)}
+        aria-label={`Show ${slide.alt}`}
+        className={`h-2.5 rounded-full transition-all ${
+          index === activeHero
+            ? "w-8 bg-slate-950"
+            : "w-2.5 bg-slate-300 hover:bg-slate-400"
+        }`}
+      />
+    ))}
+  </div>
+</div>
 
                             <div className="mt-4 flex items-center justify-center gap-2">
                               {heroSlides.map((slide, index) => (
