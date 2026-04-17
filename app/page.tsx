@@ -1429,7 +1429,7 @@ export default function Page() {
                 <div className="text-sm text-slate-500">
                   Waste less. Save more. Decide faster.</div>
                 <div className="border-t border-emerald-100">
-               <div className="text-sm text-slate-500">
+               <div className="text-xs text-slate-500">
                   © 2026 FridgeSmart™. All rights reserved.</div>
                   </div>
               </div>
