@@ -28,7 +28,7 @@ function AnimatedCounter({
   end: number;
   duration?: number;
 }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1500);
 
   useEffect(() => {
     let start: number | null = null;
