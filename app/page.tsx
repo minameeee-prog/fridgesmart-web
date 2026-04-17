@@ -59,10 +59,8 @@ const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart";
 const API_ENDPOINT = "/api/chef-lumi-demo";
 const SITE_URL = "https://fridgesmartapp.com";
-const PAGE_TITLE =
-  "FridgeSmart App — Track Your Fridge, Reduce Food Waste & Get AI Recipes";
 const PAGE_DESCRIPTION =
-  "FridgeSmart (also searched as Fridge Smart or FridgeSmart App) is an AI-powered app that helps you scan your fridge, track expiration dates, get alerts before food goes bad, and create recipes from ingredients you already have.";
+  "FridgeSmart, also searched as Fridge Smart or FridgeSmart App, is an AI-powered app that helps you scan your fridge, track expiration dates, get alerts before food goes bad, and create recipes from ingredients you already have.";
 
 type Msg = { role: "user" | "assistant"; text: string };
 
@@ -499,146 +497,6 @@ function ChefChat() {
 export default function Page() {
   const [activeHero, setActiveHero] = useState(0);
   const [typedIngredients, setTypedIngredients] = useState("");
-
-  useEffect(() => {
-    document.title = PAGE_TITLE;
-
-    const ensureMeta = (
-      selector: string,
-      create: () => HTMLMetaElement,
-      content: string
-    ) => {
-      let element = document.querySelector(selector) as HTMLMetaElement | null;
-      if (!element) {
-        element = create();
-        document.head.appendChild(element);
-      }
-      element.setAttribute("content", content);
-    };
-
-    const ensureLink = (
-      selector: string,
-      create: () => HTMLLinkElement,
-      href: string
-    ) => {
-      let element = document.querySelector(selector) as HTMLLinkElement | null;
-      if (!element) {
-        element = create();
-        document.head.appendChild(element);
-      }
-      element.setAttribute("href", href);
-    };
-
-    ensureMeta(
-      'meta[name="description"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.name = "description";
-        return meta;
-      },
-      PAGE_DESCRIPTION
-    );
-
-    ensureMeta(
-      'meta[name="keywords"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.name = "keywords";
-        return meta;
-      },
-      "FridgeSmart, Fridge Smart, FridgeSmart App, food tracking app, reduce food waste, fridge inventory app, AI recipe app, expiration tracking app, grocery organization app"
-    );
-
-    ensureMeta(
-      'meta[property="og:title"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.setAttribute("property", "og:title");
-        return meta;
-      },
-      PAGE_TITLE
-    );
-
-    ensureMeta(
-      'meta[property="og:description"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.setAttribute("property", "og:description");
-        return meta;
-      },
-      PAGE_DESCRIPTION
-    );
-
-    ensureMeta(
-      'meta[property="og:type"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.setAttribute("property", "og:type");
-        return meta;
-      },
-      "website"
-    );
-
-    ensureMeta(
-      'meta[property="og:url"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.setAttribute("property", "og:url");
-        return meta;
-      },
-      SITE_URL
-    );
-
-    ensureMeta(
-      'meta[property="og:site_name"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.setAttribute("property", "og:site_name");
-        return meta;
-      },
-      "FridgeSmart"
-    );
-
-    ensureMeta(
-      'meta[name="twitter:card"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.name = "twitter:card";
-        return meta;
-      },
-      "summary_large_image"
-    );
-
-    ensureMeta(
-      'meta[name="twitter:title"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.name = "twitter:title";
-        return meta;
-      },
-      PAGE_TITLE
-    );
-
-    ensureMeta(
-      'meta[name="twitter:description"]',
-      () => {
-        const meta = document.createElement("meta");
-        meta.name = "twitter:description";
-        return meta;
-      },
-      PAGE_DESCRIPTION
-    );
-
-    ensureLink(
-      'link[rel="canonical"]',
-      () => {
-        const link = document.createElement("link");
-        link.rel = "canonical";
-        return link;
-      },
-      SITE_URL
-    );
-  }, []);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -1480,9 +1338,9 @@ export default function Page() {
                   Is FridgeSmart the same as Fridge Smart?
                 </h3>
                 <p className="mt-2 text-sm leading-7 text-slate-600">
-                  Yes. FridgeSmart is also sometimes searched as Fridge Smart
-                  or FridgeSmart App. It is the same food tracking and recipe
-                  assistant app.
+                  Yes. FridgeSmart is also sometimes searched as Fridge Smart or
+                  FridgeSmart App. It is the same food tracking and recipe assistant
+                  app.
                 </p>
               </div>
 
