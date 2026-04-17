@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fridgesmartapp.com"),
-  title: "FridgeSmart App — Track Your Fridge, Reduce Food Waste & Get AI Recipes",
+  title: "FridgeSmart App — Scan Your Fridge, Reduce Food Waste & Get AI Recipes",
   description:
     "FridgeSmart (also searched as Fridge Smart or FridgeSmart App) is an AI-powered app that helps you scan your fridge, track expiration dates, get alerts before food goes bad, and create recipes from ingredients you already have.",
   keywords: [
@@ -15,7 +15,9 @@ export const metadata: Metadata = {
     "expiration tracking app",
     "reduce food waste",
     "AI recipe app",
-    "meal planning app",
+    "meal planning app"
+    "Scan my Fridge app"
+    "Pantry Scan app",
   ],
   alternates: {
     canonical: "/",
