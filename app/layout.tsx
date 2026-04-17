@@ -1,62 +1,49 @@
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FridgeSmart App — Scan Your Fridge, Reduce Food Waste & Get AI Recipes",
+  metadataBase: new URL("https://fridgesmartapp.com"),
+  title: "FridgeSmart App — Track Your Fridge, Reduce Food Waste & Get AI Recipes",
   description:
-    "FridgeSmart (also known as Fridge Smart) is an AI-powered app that tracks your fridge, alerts you before food expires, and creates recipes from what you already have. Waste less. Save more. Decide faster.",
-
+    "FridgeSmart (also searched as Fridge Smart or FridgeSmart App) is an AI-powered app that helps you scan your fridge, track expiration dates, get alerts before food goes bad, and create recipes from ingredients you already have.",
   keywords: [
     "FridgeSmart",
     "Fridge Smart",
-    "FridgeSmart app",
+    "FridgeSmart App",
     "food tracking app",
+    "fridge inventory app",
+    "expiration tracking app",
     "reduce food waste",
-    "AI recipe generator",
-    "fridge inventory app",
-    "grocery list app",
-    "fridge inventory app",
-    "food waste app",
-    "expiration tracker app",
-    "pantry inventory app",
-    "kitchen organization app",
+    "AI recipe app",
     "meal planning app",
-    "recipe app with ingredients you have",
-    "smart grocery list",
-    "save money on groceries",
   ],
-
-  metadataBase: new URL("https://fridgesmartapp.com"),
-
   alternates: {
     canonical: "/",
   },
-
   openGraph: {
-    title: "FridgeSmart App — Track Your Fridge & Reduce Food Waste",
+    title: "FridgeSmart App — Track Your Fridge, Reduce Food Waste & Get AI Recipes",
     description:
-      "Scan your fridge, track expiration dates, and get AI-powered recipes instantly with FridgeSmart.",
+      "Scan your fridge, track expiration dates, get food reminders, and turn ingredients you already have into real meals.",
     url: "https://fridgesmartapp.com",
     siteName: "FridgeSmart",
+    type: "website",
+    locale: "en_US",
     images: [
       {
-        url: "/og-image.png", // make sure this exists
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "FridgeSmart App",
       },
     ],
-    locale: "en_US",
-    type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "FridgeSmart App — Track Your Fridge & Reduce Food Waste",
+    title: "FridgeSmart App — Track Your Fridge, Reduce Food Waste & Get AI Recipes",
     description:
-      "Your fridge isn’t empty… you just don’t know what’s in it. Scan, track, and cook smarter.",
+      "Scan your fridge, track expiration dates, get food reminders, and turn ingredients you already have into real meals.",
     images: ["/og-image.png"],
   },
-
   robots: {
     index: true,
     follow: true,
