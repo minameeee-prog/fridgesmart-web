@@ -1429,8 +1429,8 @@ export default function Page() {
                 <div className="text-sm text-slate-500">
                   Waste less. Save more. Decide faster.</div>
                 <div className="border-t border-emerald-100">
-  <div className="mx-auto max-w-7xl px-4 py-4 text-xs text-slate-500 sm:px-6 lg:px-8 text-center">
-    © 2026 FridgeSmart™. All rights reserved.</div>
+               <div className="mx-auto max-w-7xl px-4 py-4 text-xs text-slate-500 sm:px-6 lg:px-8 text-center">
+                  © 2026 FridgeSmart™. All rights reserved.</div>
                   </div>
               </div>
             </div>
