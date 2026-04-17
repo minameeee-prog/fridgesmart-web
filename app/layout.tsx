@@ -1,138 +1,76 @@
-import type { Metadata, Viewport } from 'next';
-import type { ReactNode } from 'react';
-import './globals.css';
-
-const siteUrl = 'https://fridgesmartapp.com';
-const siteName = 'FridgeSmart';
-const title = 'FridgeSmart | Waste less. Save more. Decide faster.';
-const description =
-  'FridgeSmart helps households track food, catch expiring items, reduce waste, and cook from what they already have. Organize your fridge, save money, and shop smarter.';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: title,
-    template: '%s | FridgeSmart',
-  },
-  description,
-  applicationName: siteName,
+  title: "FridgeSmart App — Scan Your Fridge, Reduce Food Waste & Get AI Recipes",
+  description:
+    "FridgeSmart (also known as Fridge Smart) is an AI-powered app that tracks your fridge, alerts you before food expires, and creates recipes from what you already have. Waste less. Save more. Decide faster.",
+
   keywords: [
-    'fridge inventory app',
-    'food waste app',
-    'expiration tracker app',
-    'pantry inventory app',
-    'kitchen organization app',
-    'meal planning app',
-    'recipe app with ingredients you have',
-    'smart grocery list',
-    'save money on groceries',
-    'FridgeSmart',
+    "FridgeSmart",
+    "Fridge Smart",
+    "FridgeSmart app",
+    "food tracking app",
+    "reduce food waste",
+    "AI recipe generator",
+    "fridge inventory app",
+    "grocery list app",
+    "fridge inventory app",
+    "food waste app",
+    "expiration tracker app",
+    "pantry inventory app',
+    "kitchen organization app",
+    "meal planning app',
+    "recipe app with ingredients you have",
+    "smart grocery list",
+    "save money on groceries",
   ],
-  authors: [{ name: 'FridgeSmart' }],
-  creator: 'FridgeSmart',
-  publisher: 'FridgeSmart',
-  category: 'food',
+
+  metadataBase: new URL("https://fridgesmartapp.com"),
+
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-icon.png',
-  },
+
   openGraph: {
-    type: 'website',
-    url: siteUrl,
-    siteName,
-    title,
-    description,
+    title: "FridgeSmart App — Track Your Fridge & Reduce Food Waste",
+    description:
+      "Scan your fridge, track expiration dates, and get AI-powered recipes instantly with FridgeSmart.",
+    url: "https://fridgesmartapp.com",
+    siteName: "FridgeSmart",
     images: [
       {
-        url: '/assets/og-fridgesmart.jpg',
+        url: "/og-image.png", // make sure this exists
         width: 1200,
         height: 630,
-        alt: 'FridgeSmart app preview',
+        alt: "FridgeSmart App",
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
+
   twitter: {
-    card: 'summary_large_image',
-    title,
-    description,
-    images: ['/assets/og-fridgesmart.jpg'],
+    card: "summary_large_image",
+    title: "FridgeSmart App — Track Your Fridge & Reduce Food Waste",
+    description:
+      "Your fridge isn’t empty… you just don’t know what’s in it. Scan, track, and cook smarter.",
+    images: ["/og-image.png"],
   },
+
   robots: {
     index: true,
     follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
-    },
   },
-  other: {
-    'amazon-associates-link-disclosure':
-      'As an Amazon Associate, FridgeSmart earns from qualifying purchases.',
-  },
-};
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: '#F7F4EE',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
-  const organizationJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'FridgeSmart',
-    url: siteUrl,
-    logo: `${siteUrl}/assets/logo.png`,
-    sameAs: [
-      'https://apps.apple.com/us/app/fridgesmart-app/id6755790933',
-      'https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart',
-    ],
-  };
-
-  const softwareAppJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'MobileApplication',
-    name: 'FridgeSmart',
-    applicationCategory: 'UtilitiesApplication',
-    operatingSystem: 'iOS, Android',
-    description,
-    url: siteUrl,
-    downloadUrl: [
-      'https://apps.apple.com/us/app/fridgesmart-app/id6755790933',
-      'https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart',
-    ],
-    publisher: {
-      '@type': 'Organization',
-      name: 'FridgeSmart',
-    },
-  };
-
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-  <body suppressHydrationWarning>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
-        />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
