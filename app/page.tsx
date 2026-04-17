@@ -1459,6 +1459,10 @@ export default function Page() {
               FridgeSmart, also searched as Fridge Smart or FridgeSmart App, is
               an AI-powered fridge tracking and food waste reduction app for
               iPhone and Android.
+              <div className="border-t border-emerald-100">
+  <div className="mx-auto max-w-7xl px-4 py-4 text-xs text-slate-500 sm:px-6 lg:px-8 text-center">
+    © 2026 FridgeSmart™. All rights reserved.
+ 
             </div>
           </div>
         </footer>
