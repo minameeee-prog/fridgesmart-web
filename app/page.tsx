@@ -93,7 +93,7 @@ const heroSlides: HeroSlide[] = [
     ingredients:
       "I found eggs, spinach, mushrooms, tortillas, and cheese in your fridge.",
     followup:
-      "You can turn that into a fast breakfast wrap and use your spinach before it gets forgotten.",
+      "You can turn that into a fast breakfast wrap and use your spinach before it expires.",
     freshness: "Scan complete",
     savings: "$52",
   },
@@ -124,7 +124,7 @@ const howItWorks = [
     icon: ScanLine,
     title: "Scan your fridge",
     description:
-      "Quickly see what you already have so you stop guessing and start using food before it gets forgotten.",
+      "Quickly see what you already have so you stop guessing and start using food before it expires.",
   },
   {
     icon: BellRing,
@@ -1290,7 +1290,7 @@ export default function Page() {
               Smart shopping for what your kitchen actually needs.
             </h2>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-              FridgeSmart helps you figure out what you already have, what is
+              FridgeSmart helps you see what you already have, what is
               running low, and what makes sense to reorder instead of buying
               blindly.
             </p>
