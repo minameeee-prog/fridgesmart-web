@@ -22,13 +22,15 @@ import {
 } from "lucide-react";
 
 function AnimatedCounter({
+  startFrom = 200,
   end,
   duration = 1500,
 }: {
+  startFrom?: number;
   end: number;
   duration?: number;
 }) {
-  const [count, setCount] = useState(1500);
+  const [count, setCount] = useState(startFrom);
 
   useEffect(() => {
     let start: number | null = null;
@@ -38,7 +40,8 @@ function AnimatedCounter({
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * end));
+      const current = Math.floor(startFrom + eased * (end - startFrom));
+      setCount(current);
 
       if (progress < 1) {
         frame = window.requestAnimationFrame(step);
@@ -48,7 +51,7 @@ function AnimatedCounter({
     frame = window.requestAnimationFrame(step);
 
     return () => window.cancelAnimationFrame(frame);
-  }, [end, duration]);
+  }, [startFrom, end, duration]);
 
   return <span>{count}+</span>;
 }
@@ -659,7 +662,7 @@ export default function Page() {
                   </div>
                   <div className="rounded-2xl border border-emerald-100 bg-white/90 p-4 shadow-sm">
                     <div className="text-2xl font-black tracking-tight text-slate-950">
-                      <AnimatedCounter end={250} />
+                      <AnimatedCounter startFrom={200} end={250} />
                     </div>
                     <div className="mt-1 text-sm text-slate-600">
                       Early users already organizing meals and reducing waste
@@ -736,54 +739,31 @@ export default function Page() {
                             </span>
                           </div>
 
-<div className="mx-auto w-[250px]">
-  <div className="relative h-[510px] w-[250px] rounded-[3rem] bg-[#0b1020] p-[5px] shadow-[0_20px_45px_rgba(0,0,0,0.28)]">
-    
-    {/* Dynamic Island */}
-    <div className="absolute left-1/2 top-[10px] z-20 h-[26px] w-[118px] -translate-x-1/2 rounded-full bg-black" />
-    
-    {/* Camera dot */}
-    <div className="absolute right-[22px] top-[18px] z-20 h-[10px] w-[10px] rounded-full border border-white/20 bg-[#1f2937]" />
+                          <div className="mx-auto w-[250px]">
+                            <div className="relative h-[510px] w-[250px] rounded-[3rem] bg-[#0b1020] p-[5px] shadow-[0_20px_45px_rgba(0,0,0,0.28)]">
+                              <div className="absolute left-1/2 top-[10px] z-20 h-[26px] w-[118px] -translate-x-1/2 rounded-full bg-black" />
+                              <div className="absolute right-[22px] top-[18px] z-20 h-[10px] w-[10px] rounded-full border border-white/20 bg-[#1f2937]" />
 
-    {/* Screen */}
-    <div className="relative h-full overflow-hidden rounded-[2.65rem] bg-black">
-      {heroSlides.map((slide, index) => (
-        <div
-          key={slide.src}
-          className={`absolute inset-0 transition-all duration-700 ${
-            index === activeHero
-              ? "opacity-100 scale-100"
-              : "opacity-0 scale-[1.02]"
-          }`}
-        >
-          <Image
-            src={slide.src}
-            alt={slide.alt}
-            fill
-            className="object-cover object-top"
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-
-  {/* Dots */}
-  <div className="mt-4 flex items-center justify-center gap-2">
-    {heroSlides.map((slide, index) => (
-      <button
-        key={slide.src}
-        type="button"
-        onClick={() => setActiveHero(index)}
-        aria-label={`Show ${slide.alt}`}
-        className={`h-2.5 rounded-full transition-all ${
-          index === activeHero
-            ? "w-8 bg-slate-950"
-            : "w-2.5 bg-slate-300 hover:bg-slate-400"
-        }`}
-      />
-    ))}
-  </div>
-</div>
+                              <div className="relative h-full overflow-hidden rounded-[2.65rem] bg-black">
+                                {heroSlides.map((slide, index) => (
+                                  <div
+                                    key={slide.src}
+                                    className={`absolute inset-0 transition-all duration-700 ${
+                                      index === activeHero
+                                        ? "opacity-100 scale-100"
+                                        : "opacity-0 scale-[1.02]"
+                                    }`}
+                                  >
+                                    <Image
+                                      src={slide.src}
+                                      alt={slide.alt}
+                                      fill
+                                      className="object-cover object-top"
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
 
                             <div className="mt-4 flex items-center justify-center gap-2">
                               {heroSlides.map((slide, index) => (
@@ -1152,13 +1132,15 @@ export default function Page() {
                 </h2>
 
                 <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-                  Complete shopping orders using FridgeSmart recommendations—any items,
-                  not just groceries—and send proof of purchase to qualify for rewards.
+                  Complete shopping orders using FridgeSmart recommendations—any
+                  items, not just groceries—and send proof of purchase to
+                  qualify for rewards.
                 </p>
 
                 <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-                  You’re simply shopping as you normally would. There’s nothing extra to buy—just
-                  use FridgeSmart to plan your shopping and get rewarded for it.
+                  You’re simply shopping as you normally would. There’s nothing
+                  extra to buy—just use FridgeSmart to plan your shopping and
+                  get rewarded for it.
                 </p>
 
                 <p className="mt-3 text-sm font-medium text-emerald-700">
@@ -1166,28 +1148,38 @@ export default function Page() {
                 </p>
 
                 <p className="mt-2 text-sm text-slate-500">
-                  Qualifying orders should reflect normal purchases and not small or test transactions.
+                  Qualifying orders should reflect normal purchases and not
+                  small or test transactions.
                 </p>
 
                 <div className="mt-8 grid gap-3 sm:grid-cols-3">
                   <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
-                    <p className="text-sm font-semibold text-slate-900">1. Shop normally</p>
+                    <p className="text-sm font-semibold text-slate-900">
+                      1. Shop normally
+                    </p>
                     <p className="mt-1 text-sm leading-6 text-slate-600">
-                      Use FridgeSmart recommendations for items you already plan to buy.
+                      Use FridgeSmart recommendations for items you already plan
+                      to buy.
                     </p>
                   </div>
 
                   <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
-                    <p className="text-sm font-semibold text-slate-900">2. Save proof</p>
+                    <p className="text-sm font-semibold text-slate-900">
+                      2. Save proof
+                    </p>
                     <p className="mt-1 text-sm leading-6 text-slate-600">
-                      Keep your order confirmations, receipts, or purchase screenshots.
+                      Keep your order confirmations, receipts, or purchase
+                      screenshots.
                     </p>
                   </div>
 
                   <div className="rounded-2xl border border-white/70 bg-white p-4 shadow-sm">
-                    <p className="text-sm font-semibold text-slate-900">3. Claim rewards</p>
+                    <p className="text-sm font-semibold text-slate-900">
+                      3. Claim rewards
+                    </p>
                     <p className="mt-1 text-sm leading-6 text-slate-600">
-                      Send your proof after qualifying orders and we’ll review your submission.
+                      Send your proof after qualifying orders and we’ll review
+                      your submission.
                     </p>
                   </div>
                 </div>
@@ -1209,13 +1201,16 @@ export default function Page() {
                 </div>
 
                 <p className="mt-6 text-sm text-slate-500">
-                  Rewards are subject to review. Proof of purchase required. Limit one reward per tier progression. Terms apply.
+                  Rewards are subject to review. Proof of purchase required.
+                  Limit one reward per tier progression. Terms apply.
                 </p>
               </div>
 
               <div className="flex h-full items-center">
                 <div className="w-full rounded-3xl bg-slate-900 p-6 text-white shadow-lg">
-                  <p className="text-sm font-medium text-emerald-300">Reward Levels</p>
+                  <p className="text-sm font-medium text-emerald-300">
+                    Reward Levels
+                  </p>
 
                   <div className="mt-5 space-y-4">
                     <div className="rounded-2xl bg-white/10 p-4">
@@ -1251,33 +1246,34 @@ export default function Page() {
 
             <div className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
               <p>
-                Users may qualify for rewards by completing eligible shopping orders using
-                FridgeSmart recommendations and submitting valid proof of purchase for review.
+                Users may qualify for rewards by completing eligible shopping
+                orders using FridgeSmart recommendations and submitting valid
+                proof of purchase for review.
               </p>
 
               <p>
-                Eligible purchases may include any qualifying items and are not limited to groceries.
+                Eligible purchases may include any qualifying items and are not
+                limited to groceries.
               </p>
 
               <p>
-                Proof of purchase may include order confirmations, receipts, screenshots,
-                or similar documentation that clearly shows the order details.
+                Proof of purchase may include order confirmations, receipts,
+                screenshots, or similar documentation that clearly shows the
+                order details.
               </p>
 
               <p>
-                Qualifying orders must represent normal consumer purchases. Small, test,
-                repeated, minimal, canceled, refunded, duplicate, or suspicious transactions
-                may not be eligible.
+                Qualifying orders must represent normal consumer purchases.
+                Small, test, repeated, minimal, canceled, refunded, duplicate,
+                or suspicious transactions may not be eligible.
               </p>
 
               <p>
-                Limit one reward per tier progression per user. FridgeSmart reserves the right
-                to review and approve all submissions.
+                Limit one reward per tier progression per user. FridgeSmart
+                reserves the right to review and approve all submissions.
               </p>
 
-              <p>
-                FridgeSmart may modify or end this offer at any time.
-              </p>
+              <p>FridgeSmart may modify or end this offer at any time.</p>
             </div>
           </div>
         </section>
@@ -1364,8 +1360,8 @@ export default function Page() {
                 </h3>
                 <p className="mt-2 text-sm leading-7 text-slate-600">
                   Yes. FridgeSmart is also sometimes searched as Fridge Smart or
-                  FridgeSmart App. It is the same food tracking and recipe assistant
-                  app.
+                  FridgeSmart App. It is the same food tracking and recipe
+                  assistant app.
                 </p>
               </div>
 
@@ -1400,7 +1396,8 @@ export default function Page() {
                 Ready to start?
               </p>
               <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-                Scan your fridge. Catch what is expiring. Decide on dinner faster.
+                Scan your fridge. Catch what is expiring. Decide on dinner
+                faster.
               </h2>
               <p className="mt-4 text-lg leading-8 text-emerald-50/95">
                 Download FridgeSmart and turn the food you already have into
