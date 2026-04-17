@@ -736,10 +736,16 @@ export default function Page() {
                             </span>
                           </div>
 
-                          <div className="mx-auto w-[250px]">
+<div className="mx-auto w-[250px]">
   <div className="relative h-[510px] w-[250px] rounded-[3rem] bg-[#0b1020] p-[5px] shadow-[0_20px_45px_rgba(0,0,0,0.28)]">
+    
+    {/* Dynamic Island */}
     <div className="absolute left-1/2 top-[10px] z-20 h-[26px] w-[118px] -translate-x-1/2 rounded-full bg-black" />
+    
+    {/* Camera dot */}
     <div className="absolute right-[22px] top-[18px] z-20 h-[10px] w-[10px] rounded-full border border-white/20 bg-[#1f2937]" />
+
+    {/* Screen */}
     <div className="relative h-full overflow-hidden rounded-[2.65rem] bg-black">
       {heroSlides.map((slide, index) => (
         <div
@@ -761,6 +767,7 @@ export default function Page() {
     </div>
   </div>
 
+  {/* Dots */}
   <div className="mt-4 flex items-center justify-center gap-2">
     {heroSlides.map((slide, index) => (
       <button
