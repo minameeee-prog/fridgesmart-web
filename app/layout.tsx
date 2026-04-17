@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 const siteUrl = 'https://fridgesmartapp.com';
@@ -132,6 +133,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   );
