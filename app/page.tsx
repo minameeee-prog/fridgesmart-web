@@ -60,6 +60,13 @@ const APP_STORE_URL =
   "https://apps.apple.com/us/app/fridgesmart-app/id6755790933";
 const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.minafakhri.fridgesmart";
+const AMAZON_URL =
+  "https://www.amazon.com/s?k=kitchen+groceries&tag=fridgesmartap-20";
+const INSTAGRAM_URL = "https://www.instagram.com/fridgesmartapp/";
+const TIKTOK_URL = "https://www.tiktok.com/@fridgesmartapp";
+const YOUTUBE_URL = "https://www.youtube.com/@fridgesmartapp";
+const FACEBOOK_URL = "https://www.facebook.com/fridgesmartapp";
+const LINKEDIN_URL = "https://www.linkedin.com/company/fridgesmartapp/";
 const API_ENDPOINT = "/api/chef-lumi-demo";
 const SITE_URL = "https://fridgesmartapp.com";
 const PAGE_DESCRIPTION =
@@ -597,6 +604,12 @@ export default function Page() {
                     Features
                   </a>
                   <a
+                    href="#rewards"
+                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
+                  >
+                    Rewards
+                  </a>
+                  <a
                     href="#chef-lumi"
                     className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
                   >
@@ -1119,7 +1132,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mx-auto my-16 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <section id="rewards" className="mx-auto my-16 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-[28px] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-yellow-50 shadow-sm">
             <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:p-10">
               <div>
@@ -1350,42 +1363,91 @@ export default function Page() {
               FAQ
             </p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
-              Common questions about FridgeSmart
+              Frequently asked questions
             </h2>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
+              Everything you need to know about FridgeSmart, Chef Lumi, rewards,
+              smart shopping, privacy, and how the app stays free.
+            </p>
 
             <div className="mt-8 grid gap-4">
-              <div className="rounded-2xl bg-[#f6faf6] p-5">
-                <h3 className="text-lg font-bold text-slate-950">
-                  Is FridgeSmart the same as Fridge Smart?
-                </h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
-                  Yes. FridgeSmart is also sometimes searched as Fridge Smart or
-                  FridgeSmart App. It is the same food tracking and recipe
-                  assistant app.
-                </p>
-              </div>
+              {[
+                {
+                  q: "What is FridgeSmart?",
+                  a: "FridgeSmart is an AI-powered fridge tracking app that helps you scan your fridge, track expiration dates, get food reminders, reduce waste, and create meal ideas from ingredients you already have.",
+                },
+                {
+                  q: "Is FridgeSmart the same as Fridge Smart?",
+                  a: "Yes. FridgeSmart is also sometimes searched as Fridge Smart or FridgeSmart App. It is the same food tracking and recipe assistant app.",
+                },
+                {
+                  q: "How does FridgeSmart help reduce food waste?",
+                  a: "FridgeSmart helps you see what you already own, what is expiring soon, and what should be used first so food is less likely to be forgotten or wasted.",
+                },
+                {
+                  q: "What is Chef Lumi?",
+                  a: "Chef Lumi is the AI kitchen assistant inside FridgeSmart. It helps suggest meals, different cuisine ideas, and smarter ways to use the ingredients already in your fridge.",
+                },
+                {
+                  q: "How is FridgeSmart free?",
+                  a: "FridgeSmart is free because we may earn through affiliate partnerships, including Amazon. When users shop through our Amazon links, FridgeSmart may earn from qualifying purchases at no extra cost to the user. You can support the app by shopping through our Amazon Picks.",
+                  linkText: "Shop Amazon Picks",
+                  linkHref: AMAZON_URL,
+                },
+                {
+                  q: "Does FridgeSmart automatically order groceries?",
+                  a: "No. FridgeSmart helps you decide what you may need to restock, then directs you to shopping options like Amazon Picks. You stay in control of what you buy.",
+                },
+                {
+                  q: "Can FridgeSmart track expiration dates?",
+                  a: "Yes. FridgeSmart helps track estimated expiration dates and highlights items that may need attention soon so you can use them before they go bad.",
+                },
+                {
+                  q: "Can I use FridgeSmart for recipes?",
+                  a: "Yes. Chef Lumi can suggest recipes and meal ideas based on the ingredients you already have, helping you decide what to cook faster.",
+                },
+                {
+                  q: "What are FridgeSmart Rewards?",
+                  a: "FridgeSmart Rewards are promotional opportunities where eligible users may receive rewards for qualifying actions, such as using FridgeSmart shopping links during active campaigns.",
+                  linkText: "View Rewards",
+                  linkHref: "#rewards",
+                },
+                {
+                  q: "Is my information private?",
+                  a: "FridgeSmart takes privacy seriously. You can review our Privacy Policy for more details about how information is handled.",
+                  linkText: "Read Privacy Policy",
+                  linkHref: "/privacy",
+                },
+              ].map((item) => (
+                <div
+                  key={item.q}
+                  className="rounded-2xl bg-[#f6faf6] p-5"
+                >
+                  <h3 className="text-lg font-bold text-slate-950">
+                    {item.q}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600">
+                    {item.a}
+                  </p>
 
-              <div className="rounded-2xl bg-[#f6faf6] p-5">
-                <h3 className="text-lg font-bold text-slate-950">
-                  What does FridgeSmart do?
-                </h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
-                  FridgeSmart helps you scan your fridge, track expiration
-                  dates, get reminders before food expires, and create meal
-                  ideas from ingredients you already have.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-[#f6faf6] p-5">
-                <h3 className="text-lg font-bold text-slate-950">
-                  Is FridgeSmart available on iPhone and Android?
-                </h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
-                  Yes. FridgeSmart is available on the App Store and on Google
-                  Play.
-                </p>
-              </div>
+                  {"linkHref" in item && item.linkHref ? (
+                    <Link
+                      href={item.linkHref}
+                      target={item.linkHref.startsWith("http") ? "_blank" : undefined}
+                      rel={item.linkHref.startsWith("http") ? "noreferrer" : undefined}
+                      className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 transition hover:text-emerald-600"
+                    >
+                      {item.linkText}
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  ) : null}
+                </div>
+              ))}
             </div>
+
+            <p className="mt-6 text-xs leading-6 text-slate-500">
+              As an Amazon Associate, FridgeSmart earns from qualifying purchases.
+            </p>
           </div>
         </section>
 
@@ -1442,17 +1504,66 @@ export default function Page() {
               <a href="#features" className="hover:text-slate-950">
                 Features
               </a>
+              <a href="#rewards" className="hover:text-slate-950">
+                Rewards
+              </a>
               <a href="#amazon-picks" className="hover:text-slate-950">
                 Amazon Picks
               </a>
               <a href="#faq" className="hover:text-slate-950">
                 FAQ
               </a>
+              <Link href="/privacy" className="hover:text-slate-950">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="hover:text-slate-950">
+                Terms & Conditions
+              </Link>
               <Link
                 href="mailto:support@fridgesmartapp.com"
                 className="hover:text-slate-950"
               >
                 support@fridgesmartapp.com
+              </Link>
+              <Link
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-950"
+              >
+                Instagram
+              </Link>
+              <Link
+                href={TIKTOK_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-950"
+              >
+                TikTok
+              </Link>
+              <Link
+                href={YOUTUBE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-950"
+              >
+                YouTube
+              </Link>
+              <Link
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-950"
+              >
+                Facebook
+              </Link>
+              <Link
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-950"
+              >
+                LinkedIn
               </Link>
             </div>
           </div>
