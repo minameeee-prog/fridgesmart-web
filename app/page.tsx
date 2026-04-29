@@ -1299,67 +1299,97 @@ export default function Page() {
         </section>
 
         <section
-          id="amazon-picks"
-          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+  id="amazon-picks"
+  className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+>
+  <div className="mb-8">
+    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+      Smart Restock Picks
+    </p>
+
+    <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+      Restock smarter without buying blindly.
+    </h2>
+
+    <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
+      FridgeSmart helps you think before you shop. Use these restock shortcuts
+      to fill common kitchen gaps, complete meals, and avoid buying duplicates.
+    </p>
+
+    <p className="mt-3 text-sm font-semibold text-emerald-700">
+      Based on what busy households often restock weekly.
+    </p>
+  </div>
+
+  <div className="grid gap-6 md:grid-cols-3">
+    {[
+      {
+        title: "Running Low Essentials",
+        emoji: "🧊",
+        text: "Restock everyday basics like milk, eggs, snacks, pantry staples, and kitchen items you use often.",
+        query: "kitchen staples groceries pantry essentials",
+        cta: "Open essentials list",
+      },
+      {
+        title: "Meal Completion Picks",
+        emoji: "🍳",
+        text: "Find missing ingredients that help complete meals Chef Lumi may suggest from what you already have.",
+        query: "quick dinner ingredients pantry meal helpers",
+        cta: "Complete my meals",
+      },
+      {
+        title: "Healthy Add-ons",
+        emoji: "🥗",
+        text: "Add smarter options for quick lunches, healthier snacks, and easier weekly meal prep.",
+        query: "healthy grocery essentials meal prep snacks",
+        cta: "Shop healthy add-ons",
+      },
+    ].map((item) => (
+      <div
+        key={item.title}
+        className="group rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+      >
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-2xl">
+            {item.emoji}
+          </div>
+          <h3 className="text-xl font-bold text-slate-950">{item.title}</h3>
+        </div>
+
+        <p className="mt-4 text-sm leading-7 text-slate-600">{item.text}</p>
+
+        <div className="mt-5 rounded-2xl bg-[#f6faf6] p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+            Smart shopping shortcut
+          </p>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Use this when your fridge is low, your meals are missing ingredients,
+            or you want to restock without overthinking.
+          </p>
+        </div>
+
+        <Link
+          href={`https://www.amazon.com/s?k=${encodeURIComponent(
+            item.query
+          )}&tag=fridgesmartap-20`}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500"
         >
-          <div className="mb-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
-              Amazon Picks
-            </p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
-              Smart shopping for what your kitchen actually needs.
-            </h2>
-            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-              FridgeSmart helps you see what you already have, what is
-              running low, and what makes sense to reorder instead of buying
-              blindly.
-            </p>
-          </div>
+          {item.cta}
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+    ))}
+  </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Kitchen staples",
-                text: "Restock the basics you use often without overbuying.",
-                query: "kitchen staples groceries",
-              },
-              {
-                title: "Healthy meal add-ons",
-                text: "Fill ingredient gaps to complete meals Chef Lumi suggests.",
-                query: "healthy grocery essentials",
-              },
-              {
-                title: "Quick dinner helpers",
-                text: "Useful add-ons for fast meals on busy nights.",
-                query: "quick dinner pantry items",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-xl font-bold text-slate-950">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">
-                  {item.text}
-                </p>
-
-                <Link
-                  href={`https://www.amazon.com/s?k=${encodeURIComponent(
-                    item.query
-                  )}&tag=fridgesmartap-20`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-500"
-                >
-                  View Amazon picks
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </section>
+  <div className="mt-8 rounded-3xl border border-emerald-100 bg-[#f9fdf9] p-5">
+    <p className="text-sm leading-7 text-slate-600">
+      As an Amazon Associate, FridgeSmart earns from qualifying purchases. This
+      helps keep FridgeSmart free for users, at no extra cost to you.
+    </p>
+  </div>
+</section>
 
         <section
           id="faq"
