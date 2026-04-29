@@ -1475,111 +1475,69 @@ export default function Page() {
           </div>
         </section>
 
-        <footer className="border-t border-emerald-100 bg-white">
-          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-            <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 overflow-hidden rounded-2xl border border-emerald-100 bg-[#f6faf6]">
-                <Image
-                  src="/logo.png"
-                  alt="FridgeSmart logo"
-                  fill
-                  className="object-contain p-1.5"
-                />
-              </div>
-              <div>
-                <div className="font-semibold text-slate-950">FridgeSmart</div>
-                <div className="text-sm text-slate-500">
-                  Waste less. Save more. Decide faster.
-                </div>
-                <div className="mt-1 text-xs text-slate-500">
-                  © 2026 FridgeSmart™. All rights reserved.
-                </div>
-              </div>
-            </div>
+<footer className="border-t border-emerald-100 bg-white">
+  <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="flex flex-col items-center text-center">
+      <div className="font-semibold text-slate-950 text-lg">FridgeSmart</div>
 
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-600">
-              <a href="#how-it-works" className="hover:text-slate-950">
-                How it works
-              </a>
-              <a href="#features" className="hover:text-slate-950">
-                Features
-              </a>
-              <a href="#rewards" className="hover:text-slate-950">
-                Rewards
-              </a>
-              <a href="#amazon-picks" className="hover:text-slate-950">
-                Amazon Picks
-              </a>
-              <a href="#faq" className="hover:text-slate-950">
-                FAQ
-              </a>
-              <Link href="/privacy" className="hover:text-slate-950">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="hover:text-slate-950">
-                Terms & Conditions
-              </Link>
-              <Link href="/delete-account" className="hover:text-slate-950">
-                Delete Account
-              </Link>
-              <Link
-                href="mailto:support@fridgesmartapp.com"
-                className="hover:text-slate-950"
-              >
-                support@fridgesmartapp.com
-              </Link>
-              <Link
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-slate-950"
-              >
-                Instagram
-              </Link>
-              <Link
-                href={TIKTOK_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-slate-950"
-              >
-                TikTok
-              </Link>
-              <Link
-                href={YOUTUBE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-slate-950"
-              >
-                YouTube
-              </Link>
-              <Link
-                href={FACEBOOK_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-slate-950"
-              >
-                Facebook
-              </Link>
-              <Link
-                href={LINKEDIN_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-slate-950"
-              >
-                LinkedIn
-              </Link>
-            </div>
-          </div>
+      <div className="mt-2 text-sm text-slate-500">
+        Waste less. Save more. Decide faster.
+      </div>
 
-          <div className="border-t border-emerald-100">
-            <div className="mx-auto max-w-7xl px-4 py-4 text-xs leading-6 text-slate-500 sm:px-6 lg:px-8">
-              FridgeSmart, also searched as Fridge Smart or FridgeSmart App, is
-              an AI-powered fridge tracking and food waste reduction app for
-              iPhone and Android.
-              © 2026 FridgeSmart™. All rights reserved.
-             </div>
-          </div>
-        </footer>
+      <div className="mt-1 text-xs text-slate-500">
+        © 2026 FridgeSmart™. All rights reserved.
+      </div>
+
+      {/* Main footer links */}
+      <div className="mt-6 flex flex-wrap justify-center items-center gap-3 text-sm text-slate-500">
+        <a href="#how-it-works" className="hover:text-slate-950">How it works</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#features" className="hover:text-slate-950">Features</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#rewards" className="hover:text-slate-950">Rewards</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#amazon-picks" className="hover:text-slate-950">Amazon Picks</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#faq" className="hover:text-slate-950">FAQ</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <Link href="/privacy" className="hover:text-slate-950">Privacy Policy</Link>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <Link href="/terms" className="hover:text-slate-950">Terms & Conditions</Link>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <Link href="/delete-account" className="hover:text-slate-950">Delete Account</Link>
+      </div>
+
+      {/* Contact + social */}
+      <div className="mt-4 flex flex-wrap justify-center items-center gap-3 text-sm text-slate-500">
+        <a href="mailto:support@fridgesmartapp.com" className="hover:text-slate-950">
+          support@fridgesmartapp.com
+        </a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#" className="hover:text-slate-950">Instagram</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#" className="hover:text-slate-950">TikTok</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#" className="hover:text-slate-950">YouTube</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#" className="hover:text-slate-950">Facebook</a>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+
+        <a href="#" className="hover:text-slate-950">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
       </main>
 
       <ChefChat />
