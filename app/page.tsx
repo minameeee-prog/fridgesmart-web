@@ -1414,7 +1414,7 @@ export default function Page() {
                 },
                 {
                   q: "Is my information private?",
-                  a: "FridgeSmart takes privacy seriously. You can review our Privacy Policy for more details about how information is handled.",
+                  a: "FridgeSmart takes privacy seriously. You can review our Privacy Policy, Terms & Conditions, and Delete Account page for details about how information is handled and how account removal works.",
                   linkText: "Read Privacy Policy",
                   linkHref: "/privacy",
                 },
@@ -1489,11 +1489,11 @@ export default function Page() {
               <div>
                 <div className="font-semibold text-slate-950">FridgeSmart</div>
                 <div className="text-sm text-slate-500">
-                  Waste less. Save more. Decide faster.</div>
-                <div className="border-t border-emerald-100">
-               <div className="text-xs text-slate-500">
-                  © 2026 FridgeSmart™. All rights reserved.</div>
-                  </div>
+                  Waste less. Save more. Decide faster.
+                </div>
+                <div className="mt-1 text-xs text-slate-500">
+                  © 2026 FridgeSmart™. All rights reserved.
+                </div>
               </div>
             </div>
 
@@ -1518,6 +1518,9 @@ export default function Page() {
               </Link>
               <Link href="/terms" className="hover:text-slate-950">
                 Terms & Conditions
+              </Link>
+              <Link href="/delete-account" className="hover:text-slate-950">
+                Delete Account
               </Link>
               <Link
                 href="mailto:support@fridgesmartapp.com"
