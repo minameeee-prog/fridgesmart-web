@@ -620,7 +620,7 @@ export default function Page() {
         href="#amazon-picks"
         className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-slate-950 hover:shadow-sm"
       >
-        Amazon Picks
+        Smart Restock Picks
       </a>
       <a
         href="#faq"
@@ -1536,7 +1536,7 @@ export default function Page() {
         <a href="#rewards" className="hover:text-slate-950">Rewards</a>
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
 
-        <a href="#amazon-picks" className="hover:text-slate-950">Amazon Picks</a>
+        <a href="#amazon-picks" className="hover:text-slate-950">Smart Restock Picks</a>
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
 
         <a href="#faq" className="hover:text-slate-950">FAQ</a>
