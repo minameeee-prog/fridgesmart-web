@@ -568,78 +568,85 @@ export default function Page() {
           <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-emerald-100/60 to-transparent" />
 
           <div className="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-24">
-            <header className="mb-10 rounded-full border border-white/70 bg-white/85 px-4 py-3 shadow-sm backdrop-blur md:px-6">
-              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="relative h-11 w-11 overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-sm">
-                    <Image
-                      src="/logo.png"
-                      alt="FridgeSmart logo"
-                      fill
-                      className="object-contain p-1.5"
-                      priority
-                    />
-                  </div>
-                  <div>
-                    <div className="text-base font-semibold tracking-tight">
-                      FridgeSmart
-                    </div>
-                    <div className="text-xs text-slate-500">
-                      Scan. Save. Cook smarter.
-                    </div>
-                  </div>
-                </div>
+            <header className="sticky top-4 z-40 mb-10 rounded-full border border-white/70 bg-white/90 px-4 py-3 shadow-lg shadow-emerald-100/50 backdrop-blur-xl md:px-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <a href="#" className="flex items-center gap-3">
+      <div className="relative h-12 w-12 overflow-hidden rounded-2xl border border-emerald-100 bg-white shadow-sm">
+        <Image
+          src="/logo.png"
+          alt="FridgeSmart logo"
+          fill
+          className="object-contain p-1.5"
+          priority
+        />
+      </div>
 
-                <nav className="hidden items-center gap-6 md:flex">
-                  <a
-                    href="#how-it-works"
-                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
-                  >
-                    How it works
-                  </a>
-                  <a
-                    href="#features"
-                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
-                  >
-                    Features
-                  </a>
-                  <a
-                    href="#rewards"
-                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
-                  >
-                    Rewards
-                  </a>
-                  <a
-                    href="#chef-lumi"
-                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
-                  >
-                    Chef Lumi
-                  </a>
-                  <a
-                    href="#amazon-picks"
-                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
-                  >
-                    Amazon Picks
-                  </a>
-                  <a
-                    href="#faq"
-                    className="text-sm font-medium text-slate-600 transition hover:text-slate-950"
-                  >
-                    FAQ
-                  </a>
-                </nav>
+      <div>
+        <div className="text-lg font-black tracking-tight text-slate-950">
+          FridgeSmart
+        </div>
+        <div className="text-xs font-medium text-emerald-700">
+          Waste less. Save more.
+        </div>
+      </div>
+    </a>
 
-                <div className="flex items-center gap-3">
-                  <a
-                    href="#download"
-                    className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
-                  >
-                    Get started
-                  </a>
-                </div>
-              </div>
-            </header>
+    <nav className="hidden items-center gap-1 rounded-full border border-emerald-100 bg-[#f6faf6] p-1 md:flex">
+      <a
+        href="#how-it-works"
+        className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-slate-950 hover:shadow-sm"
+      >
+        How it works
+      </a>
+      <a
+        href="#features"
+        className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-slate-950 hover:shadow-sm"
+      >
+        Features
+      </a>
+      <a
+        href="#rewards"
+        className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-slate-950 hover:shadow-sm"
+      >
+        Rewards
+      </a>
+      <a
+        href="#chef-lumi"
+        className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-slate-950 hover:shadow-sm"
+      >
+        Chef Lumi
+      </a>
+      <a
+        href="#amazon-picks"
+        className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-slate-950 hover:shadow-sm"
+      >
+        Amazon Picks
+      </a>
+      <a
+        href="#faq"
+        className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-slate-950 hover:shadow-sm"
+      >
+        FAQ
+      </a>
+    </nav>
 
+    <div className="flex items-center gap-3">
+      <a
+        href="#amazon-picks"
+        className="hidden rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-bold text-emerald-700 transition hover:bg-emerald-100 lg:inline-flex"
+      >
+        Shop smarter
+      </a>
+
+      <a
+        href="#download"
+        className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-slate-300 transition hover:-translate-y-0.5 hover:bg-slate-800"
+      >
+        Get started
+      </a>
+    </div>
+  </div>
+</header>
             <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
               <div>
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/80 px-4 py-2 text-sm font-medium text-emerald-800 shadow-sm backdrop-blur">
